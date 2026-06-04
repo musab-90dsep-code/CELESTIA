@@ -195,7 +195,7 @@ export default function Home() {
 
       <Contact isClassicDark={isClassicDark} formData={formData} setFormData={setFormData} scrollTo={scrollTo} pageData={pageData} />
 
-      <Footer isClassicDark={isClassicDark} scrollTo={scrollTo} onAdminClick={() => router.push('/admin')} pageData={pageData} />
+      <Footer isClassicDark={isClassicDark} scrollTo={scrollTo} onAdminClick={() => window.open('/admin', '_blank')} pageData={pageData} />
 
     </div>
   );

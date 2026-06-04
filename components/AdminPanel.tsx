@@ -58,7 +58,7 @@ export default function AdminPanel({
   const [activeTab, setActiveTab] = useState<'general' | 'hero' | 'management' | 'team' | 'services'>('general');
 
   // --- LOCAL INPUT STATES ---
-  
+
   // 1. General & About
   const [formHotelName, setFormHotelName] = useState(pageData.hotelName);
   const [formOwnerName, setFormOwnerName] = useState(pageData.ownerName);
@@ -249,7 +249,7 @@ export default function AdminPanel({
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950 backdrop-blur-md">
         <div className="relative w-full max-w-md p-8 bg-stone-900 border border-stone-800 rounded-2xl shadow-2xl text-stone-100">
-          <button 
+          <button
             onClick={onClose}
             className="absolute top-4 right-4 p-2 text-stone-400 hover:text-white rounded-full hover:bg-stone-850 transition cursor-pointer"
           >
@@ -271,7 +271,7 @@ export default function AdminPanel({
           <form onSubmit={handleLogin} className="space-y-5">
             <div>
               <label className="block text-xs uppercase tracking-wider text-stone-400 font-semibold mb-2">Username</label>
-              <input 
+              <input
                 type="text" required value={username} onChange={(e) => setUsername(e.target.value)}
                 placeholder="Enter admin username"
                 className="w-full py-3 px-4 bg-stone-950 border border-stone-800 focus:outline-none focus:border-amber-500 text-sm placeholder-stone-750 rounded-lg text-white"
@@ -279,7 +279,7 @@ export default function AdminPanel({
             </div>
             <div>
               <label className="block text-xs uppercase tracking-wider text-stone-400 font-semibold mb-2">Password</label>
-              <input 
+              <input
                 type="password" required value={password} onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter admin password"
                 className="w-full py-3 px-4 bg-stone-950 border border-stone-800 focus:outline-none focus:border-amber-500 text-sm placeholder-stone-750 rounded-lg text-white"
@@ -308,9 +308,8 @@ export default function AdminPanel({
           <nav className="space-y-2">
             <button
               onClick={() => setActiveTab('general')}
-              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${
-                activeTab === 'general' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-850 hover:text-white'
-              }`}
+              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${activeTab === 'general' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-850 hover:text-white'
+                }`}
             >
               <Settings className="w-4 h-4" />
               <span>General & About</span>
@@ -318,9 +317,8 @@ export default function AdminPanel({
 
             <button
               onClick={() => setActiveTab('hero')}
-              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${
-                activeTab === 'hero' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-850 hover:text-white'
-              }`}
+              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${activeTab === 'hero' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-850 hover:text-white'
+                }`}
             >
               <Image className="w-4 h-4" />
               <span>Hero Slides</span>
@@ -328,9 +326,8 @@ export default function AdminPanel({
 
             <button
               onClick={() => setActiveTab('management')}
-              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${
-                activeTab === 'management' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-850 hover:text-white'
-              }`}
+              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${activeTab === 'management' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-850 hover:text-white'
+                }`}
             >
               <Award className="w-4 h-4" />
               <span>Management Staff</span>
@@ -338,9 +335,8 @@ export default function AdminPanel({
 
             <button
               onClick={() => setActiveTab('team')}
-              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${
-                activeTab === 'team' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-850 hover:text-white'
-              }`}
+              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${activeTab === 'team' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-850 hover:text-white'
+                }`}
             >
               <Heart className="w-4 h-4" />
               <span>Devoted Team</span>
@@ -348,9 +344,8 @@ export default function AdminPanel({
 
             <button
               onClick={() => setActiveTab('services')}
-              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${
-                activeTab === 'services' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-850 hover:text-white'
-              }`}
+              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${activeTab === 'services' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-850 hover:text-white'
+                }`}
             >
               <Shield className="w-4 h-4" />
               <span>Services</span>
@@ -415,11 +410,11 @@ export default function AdminPanel({
                       </div>
                     )}
                     <div className="flex-grow flex items-center space-x-2">
-                      <input 
-                        type="text" 
-                        value={formLogoUrl.startsWith('data:') ? '[Uploaded Image Base64 Data]' : formLogoUrl} 
-                        onChange={(e) => setFormLogoUrl(e.target.value)} 
-                        className="flex-grow py-2.5 px-4 bg-stone-955 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" 
+                      <input
+                        type="text"
+                        value={formLogoUrl.startsWith('data:') ? '[Uploaded Image Base64 Data]' : formLogoUrl}
+                        onChange={(e) => setFormLogoUrl(e.target.value)}
+                        className="flex-grow py-2.5 px-4 bg-stone-955 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500"
                         placeholder="Image URL or upload local file"
                       />
                       <label className="px-4 py-2.5 bg-stone-800 hover:bg-stone-755 text-stone-300 hover:text-white text-xs font-semibold rounded cursor-pointer transition flex-shrink-0">
@@ -462,7 +457,7 @@ export default function AdminPanel({
             <form onSubmit={saveHeroImages} className="p-8 bg-stone-900 border border-stone-800 rounded-2xl max-w-2xl space-y-6">
               <div className="flex justify-between items-center border-b border-stone-800 pb-3">
                 <h3 className="font-serif text-lg font-bold text-white">Hero Slide Images</h3>
-                <button 
+                <button
                   type="button"
                   onClick={() => setHeroUrls([...heroUrls, ''])}
                   className="px-3 py-1.5 bg-stone-800 hover:bg-stone-750 text-amber-500 hover:text-amber-450 text-xs font-semibold rounded uppercase tracking-wider transition cursor-pointer"
@@ -475,11 +470,11 @@ export default function AdminPanel({
                   <div key={index} className="space-y-1">
                     <label className="block text-xs uppercase font-bold text-stone-400">Slide Image {index + 1}</label>
                     <div className="flex items-center space-x-3">
-                      <input 
-                        type="text" 
-                        value={url.startsWith('data:') ? '[Uploaded Image Base64 Data]' : url} 
-                        onChange={(e) => updateHeroUrl(index, e.target.value)} 
-                        className="flex-grow py-2.5 px-4 bg-stone-955 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" 
+                      <input
+                        type="text"
+                        value={url.startsWith('data:') ? '[Uploaded Image Base64 Data]' : url}
+                        onChange={(e) => updateHeroUrl(index, e.target.value)}
+                        className="flex-grow py-2.5 px-4 bg-stone-955 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500"
                         placeholder="Image URL or upload local file"
                       />
                       <label className="px-4 py-2.5 bg-stone-800 hover:bg-stone-755 text-stone-300 hover:text-white text-xs font-semibold rounded cursor-pointer transition flex-shrink-0">
@@ -522,7 +517,7 @@ export default function AdminPanel({
             <form onSubmit={saveManagement} className="p-8 bg-stone-900 border border-stone-800 rounded-2xl max-w-3xl space-y-8">
               <div className="flex justify-between items-center border-b border-stone-800 pb-3">
                 <h3 className="font-serif text-lg font-bold text-white">Management Executives Info</h3>
-                <button 
+                <button
                   type="button"
                   onClick={() => setManagementList([...managementList, { id: String(Date.now()), name: '', designation: 'New Designation', email: '', phone: '', bio: '', imageUrl: '' }])}
                   className="px-3 py-1.5 bg-stone-800 hover:bg-stone-750 text-amber-500 hover:text-amber-450 text-xs font-semibold rounded uppercase tracking-wider transition cursor-pointer"
@@ -533,10 +528,10 @@ export default function AdminPanel({
               {managementList.map((member, index) => (
                 <div key={member.id} className="border-b border-stone-800 pb-6 space-y-4 last:border-b-0 last:pb-0">
                   <div className="flex justify-between items-center">
-                    <input 
-                      type="text" 
-                      value={member.designation} 
-                      onChange={(e) => updateManagementField(index, 'designation', e.target.value)} 
+                    <input
+                      type="text"
+                      value={member.designation}
+                      onChange={(e) => updateManagementField(index, 'designation', e.target.value)}
                       className="text-[10px] uppercase tracking-wider text-amber-500 font-bold bg-amber-500/10 px-2 py-1 rounded border border-transparent focus:border-amber-500/30 focus:outline-none"
                       placeholder="Executive Designation"
                     />
@@ -561,12 +556,12 @@ export default function AdminPanel({
                     <div>
                       <label className="block text-[10px] uppercase text-stone-500 mb-1">Custom Image URL (Optional)</label>
                       <div className="flex items-center space-x-2">
-                        <input 
-                          type="text" 
-                          value={member.imageUrl && member.imageUrl.startsWith('data:') ? '[Uploaded Image Base64 Data]' : (member.imageUrl || '')} 
-                          onChange={(e) => updateManagementField(index, 'imageUrl', e.target.value)} 
-                          className="flex-grow py-2 px-3 bg-stone-955 border border-stone-800 rounded text-xs text-white" 
-                          placeholder="Leave empty for default portrait" 
+                        <input
+                          type="text"
+                          value={member.imageUrl && member.imageUrl.startsWith('data:') ? '[Uploaded Image Base64 Data]' : (member.imageUrl || '')}
+                          onChange={(e) => updateManagementField(index, 'imageUrl', e.target.value)}
+                          className="flex-grow py-2 px-3 bg-stone-955 border border-stone-800 rounded text-xs text-white"
+                          placeholder="Leave empty for default portrait"
                         />
                         <label className="px-3 py-2 bg-stone-800 hover:bg-stone-755 text-stone-300 hover:text-white text-xs font-semibold rounded cursor-pointer transition flex-shrink-0">
                           Upload
@@ -609,7 +604,7 @@ export default function AdminPanel({
             <form onSubmit={saveTeam} className="p-8 bg-stone-900 border border-stone-800 rounded-2xl max-w-3xl space-y-8">
               <div className="flex justify-between items-center border-b border-stone-800 pb-3">
                 <h3 className="font-serif text-lg font-bold text-white">Team Members Info</h3>
-                <button 
+                <button
                   type="button"
                   onClick={() => setTeamList([...teamList, { id: String(Date.now()), name: '', role: 'New Role', quote: '', experience: '', imageUrl: '' }])}
                   className="px-3 py-1.5 bg-stone-800 hover:bg-stone-755 text-amber-500 hover:text-amber-450 text-xs font-semibold rounded uppercase tracking-wider transition cursor-pointer"
@@ -620,10 +615,10 @@ export default function AdminPanel({
               {teamList.map((member, index) => (
                 <div key={member.id} className="border-b border-stone-800 pb-6 space-y-4 last:border-b-0 last:pb-0">
                   <div className="flex justify-between items-center">
-                    <input 
-                      type="text" 
-                      value={member.role} 
-                      onChange={(e) => updateTeamField(index, 'role', e.target.value)} 
+                    <input
+                      type="text"
+                      value={member.role}
+                      onChange={(e) => updateTeamField(index, 'role', e.target.value)}
                       className="text-[10px] uppercase tracking-wider text-amber-500 font-bold bg-amber-500/10 px-2 py-1 rounded border border-transparent focus:border-amber-500/30 focus:outline-none"
                       placeholder="Staff Role"
                     />
@@ -648,12 +643,12 @@ export default function AdminPanel({
                     <div>
                       <label className="block text-[10px] uppercase text-stone-500 mb-1">Custom Image URL (Optional)</label>
                       <div className="flex items-center space-x-2">
-                        <input 
-                          type="text" 
-                          value={member.imageUrl && member.imageUrl.startsWith('data:') ? '[Uploaded Image Base64 Data]' : (member.imageUrl || '')} 
-                          onChange={(e) => updateTeamField(index, 'imageUrl', e.target.value)} 
-                          className="flex-grow py-2 px-3 bg-stone-955 border border-stone-800 rounded text-xs text-white" 
-                          placeholder="Leave empty for default portrait" 
+                        <input
+                          type="text"
+                          value={member.imageUrl && member.imageUrl.startsWith('data:') ? '[Uploaded Image Base64 Data]' : (member.imageUrl || '')}
+                          onChange={(e) => updateTeamField(index, 'imageUrl', e.target.value)}
+                          className="flex-grow py-2 px-3 bg-stone-955 border border-stone-800 rounded text-xs text-white"
+                          placeholder="Leave empty for default portrait"
                         />
                         <label className="px-3 py-2 bg-stone-800 hover:bg-stone-755 text-stone-300 hover:text-white text-xs font-semibold rounded cursor-pointer transition flex-shrink-0">
                           Upload
@@ -692,7 +687,7 @@ export default function AdminPanel({
             <form onSubmit={saveServices} className="p-8 bg-stone-900 border border-stone-800 rounded-2xl max-w-3xl space-y-8">
               <div className="flex justify-between items-center border-b border-stone-800 pb-3">
                 <h3 className="font-serif text-lg font-bold text-white">Services & Amenities Settings</h3>
-                <button 
+                <button
                   type="button"
                   onClick={() => setServicesList([...servicesList, { id: String(Date.now()), title: 'New Service', description: '', imageUrl: '' }])}
                   className="px-3 py-1.5 bg-stone-800 hover:bg-stone-755 text-amber-500 hover:text-amber-450 text-xs font-semibold rounded uppercase tracking-wider transition cursor-pointer"
@@ -725,12 +720,12 @@ export default function AdminPanel({
                     <div>
                       <label className="block text-[10px] uppercase text-stone-500 mb-1">Custom Image URL (Optional)</label>
                       <div className="flex items-center space-x-2">
-                        <input 
-                          type="text" 
-                          value={service.imageUrl && service.imageUrl.startsWith('data:') ? '[Uploaded Image Base64 Data]' : (service.imageUrl || '')} 
-                          onChange={(e) => updateServicesField(index, 'imageUrl', e.target.value)} 
-                          className="flex-grow py-2 px-3 bg-stone-955 border border-stone-800 rounded text-xs text-white" 
-                          placeholder="Leave empty for default photo" 
+                        <input
+                          type="text"
+                          value={service.imageUrl && service.imageUrl.startsWith('data:') ? '[Uploaded Image Base64 Data]' : (service.imageUrl || '')}
+                          onChange={(e) => updateServicesField(index, 'imageUrl', e.target.value)}
+                          className="flex-grow py-2 px-3 bg-stone-955 border border-stone-800 rounded text-xs text-white"
+                          placeholder="Leave empty for default photo"
                         />
                         <label className="px-3 py-2 bg-stone-800 hover:bg-stone-755 text-stone-300 hover:text-white text-xs font-semibold rounded cursor-pointer transition flex-shrink-0">
                           Upload
