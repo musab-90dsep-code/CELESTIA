@@ -66,12 +66,12 @@ export default function Footer({ isClassicDark, scrollTo, onAdminClick, pageData
             <div className="text-xs">
               <span className="text-stone-600">Explore Services: </span>
               <a
-                href={pageData?.techPartnerUrl || 'https://musabkhan.vercel.app'}
+                href="https://musabkhan.vercel.app"
                 target="_blank"
                 rel="noreferrer"
                 className="text-amber-400 hover:text-amber-350 hover:underline font-semibold"
               >
-                {(pageData?.techPartnerUrl || 'https://musabkhan.vercel.app').replace(/^https?:\/\//, '')} &rarr;
+                {(pageData?.techPartnerUrl || 'https://hasanahtech.com').replace(/^https?:\/\//, '')} &rarr;
               </a>
             </div>
           </div>
