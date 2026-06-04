@@ -1,0 +1,6 @@
+{
+  "name": "Luxury Residential Hotel Website",
+  "description": "A premium, elegant, and modern luxury residential/abashik hotel website UI/UX with booking features.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
