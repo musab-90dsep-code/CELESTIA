@@ -405,8 +405,8 @@ export default function AdminPanel({
                   <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Website Logo Image</label>
                   <div className="flex items-center space-x-4">
                     {formLogoUrl && (
-                      <div className="w-10 h-10 border border-stone-800 rounded bg-stone-950 flex items-center justify-center p-1.5 overflow-hidden flex-shrink-0">
-                        <img src={formLogoUrl} alt="Logo preview" className="w-full h-full object-contain" />
+                      <div className="w-10 h-10 border border-stone-800 rounded bg-stone-950 flex items-center justify-center p-0 overflow-hidden flex-shrink-0">
+                        <img src={formLogoUrl} alt="Logo preview" className="w-full h-full object-cover" />
                       </div>
                     )}
                     <div className="flex-grow flex items-center space-x-2">

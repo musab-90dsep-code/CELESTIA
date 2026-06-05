@@ -31,10 +31,10 @@ export default function Navbar({
 
         {/* Logo / Branding */}
         <div className="flex items-center space-x-2 cursor-pointer" onClick={() => scrollTo('hero')} id="branding-logo">
-          <span className={`p-2 border rounded-xs flex items-center justify-center transition-colors overflow-hidden ${isClassicDark ? 'border-amber-500/30 bg-stone-900' : 'border-stone-200 bg-stone-950 text-white'
-            }`}>
+          <span className={`w-9 h-9 border rounded-xs flex items-center justify-center transition-colors overflow-hidden ${isClassicDark ? 'border-amber-500/30 bg-stone-900' : 'border-stone-200 bg-stone-950 text-white'
+            } ${pageData?.logoUrl ? 'p-0' : 'p-2'}`}>
             {pageData?.logoUrl ? (
-              <img src={pageData.logoUrl} alt="Logo" className="w-5 h-5 object-contain" />
+              <img src={pageData.logoUrl} alt="Logo" className="w-full h-full object-cover" />
             ) : (
               <Crown className="w-5 h-5 text-amber-400" />
             )}

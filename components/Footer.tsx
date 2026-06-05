@@ -17,10 +17,10 @@ export default function Footer({ isClassicDark, scrollTo, onAdminClick, pageData
 
           {/* Column 1: Brand & Navigation (7 Cols) */}
           <div className="md:col-span-6 space-y-6">
-            <div className="flex items-center space-x-2">
-              <span className="p-2 border border-amber-500/30 bg-stone-900 rounded-xs flex items-center justify-center transition-colors overflow-hidden w-9 h-9">
+             <div className="flex items-center space-x-2">
+              <span className={`border border-amber-500/30 bg-stone-900 rounded-xs flex items-center justify-center transition-colors overflow-hidden w-9 h-9 ${pageData?.logoUrl ? 'p-0' : 'p-2'}`}>
                 {pageData?.logoUrl ? (
-                  <img src={pageData.logoUrl} alt="Logo" className="w-5 h-5 object-contain" />
+                  <img src={pageData.logoUrl} alt="Logo" className="w-full h-full object-cover" />
                 ) : (
                   <Crown className="w-5 h-5 text-amber-400" />
                 )}
