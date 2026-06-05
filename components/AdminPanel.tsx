@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { LayoutDashboard, Settings, LogOut, ShieldCheck, Mail, Phone, Calendar, MessageSquare, Image, Award, Heart, Shield } from 'lucide-react';
+import { LayoutDashboard, Settings, LogOut, ShieldCheck, Mail, Phone, Calendar, MessageSquare, Image, Award, Heart, Shield, Menu, X } from 'lucide-react';
 
 interface AdminPanelProps {
   onClose: () => void;
@@ -57,6 +57,7 @@ export default function AdminPanel({
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
   const [activeTab, setActiveTab] = useState<'general' | 'hero' | 'management' | 'team' | 'services'>('general');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // --- LOCAL INPUT STATES ---
 
@@ -261,7 +262,7 @@ export default function AdminPanel({
   if (!isLoggedIn) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950 backdrop-blur-md">
-        <div className="relative w-full max-w-md p-8 bg-stone-900 border border-stone-800 rounded-2xl shadow-2xl text-stone-100">
+        <div className="relative w-full max-w-md p-6 sm:p-8 bg-stone-900 border border-stone-800 rounded-2xl shadow-2xl text-stone-100">
           <button
             onClick={onClose}
             className="absolute top-4 right-4 p-2 text-stone-400 hover:text-white rounded-full hover:bg-stone-800 transition cursor-pointer"
@@ -309,18 +310,59 @@ export default function AdminPanel({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex bg-stone-950 text-stone-100 font-sans">
+    <div className="fixed inset-0 z-50 flex flex-col md:flex-row bg-stone-950 text-stone-100 font-sans">
+      {/* Mobile Top Bar */}
+      <div className="md:hidden flex items-center justify-between p-4 bg-stone-900 border-b border-stone-800 text-stone-100 w-full flex-shrink-0">
+        <button
+          onClick={() => setIsSidebarOpen(true)}
+          className="p-2 -ml-2 text-stone-400 hover:text-white rounded-lg hover:bg-stone-800 transition cursor-pointer"
+        >
+          <Menu className="w-6 h-6" />
+        </button>
+        <div className="flex items-center space-x-2">
+          <ShieldCheck className="w-5 h-5 text-amber-500" />
+          <span className="font-serif text-sm tracking-widest font-bold text-white uppercase">{pageData.hotelName}</span>
+        </div>
+        <button
+          onClick={onClose}
+          className="p-2 -mr-2 text-stone-400 hover:text-red-500 rounded-lg hover:bg-stone-800 transition cursor-pointer"
+        >
+          <LogOut className="w-5 h-5 text-red-500" />
+        </button>
+      </div>
+
+      {/* Backdrop for mobile sidebar */}
+      {isSidebarOpen && (
+        <div
+          className="md:hidden fixed inset-0 bg-stone-950/80 backdrop-blur-sm z-40 transition-opacity duration-300"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar Panel */}
-      <aside className="w-64 bg-stone-900 border-r border-stone-800 flex flex-col justify-between p-6 flex-shrink-0">
+      <aside className={`
+        fixed inset-y-0 left-0 z-50 w-64 bg-stone-900 border-r border-stone-800 flex flex-col justify-between p-6 transition-transform duration-300 ease-in-out flex-shrink-0
+        md:static md:translate-x-0
+        ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+      `}>
         <div className="space-y-8">
-          <div className="flex items-center space-x-2">
-            <ShieldCheck className="w-5 h-5 text-amber-500" />
-            <span className="font-serif text-base tracking-widest font-bold text-white uppercase">{pageData.hotelName}</span>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <ShieldCheck className="w-5 h-5 text-amber-500" />
+              <span className="font-serif text-base tracking-widest font-bold text-white uppercase">{pageData.hotelName}</span>
+            </div>
+            {/* Mobile Close Button */}
+            <button
+              onClick={() => setIsSidebarOpen(false)}
+              className="md:hidden p-1.5 text-stone-400 hover:text-white hover:bg-stone-800 rounded-lg transition cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
           </div>
 
           <nav className="space-y-2">
             <button
-              onClick={() => setActiveTab('general')}
+              onClick={() => { setActiveTab('general'); setIsSidebarOpen(false); }}
               className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${activeTab === 'general' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-800 hover:text-white'
                 }`}
             >
@@ -329,7 +371,7 @@ export default function AdminPanel({
             </button>
 
             <button
-              onClick={() => setActiveTab('hero')}
+              onClick={() => { setActiveTab('hero'); setIsSidebarOpen(false); }}
               className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${activeTab === 'hero' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-800 hover:text-white'
                 }`}
             >
@@ -338,7 +380,7 @@ export default function AdminPanel({
             </button>
 
             <button
-              onClick={() => setActiveTab('management')}
+              onClick={() => { setActiveTab('management'); setIsSidebarOpen(false); }}
               className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${activeTab === 'management' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-800 hover:text-white'
                 }`}
             >
@@ -347,7 +389,7 @@ export default function AdminPanel({
             </button>
 
             <button
-              onClick={() => setActiveTab('team')}
+              onClick={() => { setActiveTab('team'); setIsSidebarOpen(false); }}
               className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${activeTab === 'team' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-800 hover:text-white'
                 }`}
             >
@@ -356,7 +398,7 @@ export default function AdminPanel({
             </button>
 
             <button
-              onClick={() => setActiveTab('services')}
+              onClick={() => { setActiveTab('services'); setIsSidebarOpen(false); }}
               className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${activeTab === 'services' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-800 hover:text-white'
                 }`}
             >
@@ -376,13 +418,13 @@ export default function AdminPanel({
       </aside>
 
       {/* Main content area */}
-      <main className="flex-grow p-10 overflow-y-auto">
-        <header className="flex justify-between items-center mb-8 border-b border-stone-800 pb-5">
+      <main className="flex-grow p-4 sm:p-6 md:p-10 overflow-y-auto w-full">
+        <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 border-b border-stone-800 pb-5">
           <div>
-            <h1 className="font-serif text-3xl font-bold tracking-wide text-white capitalize">Modify {activeTab} Data</h1>
+            <h1 className="font-serif text-2xl sm:text-3xl font-bold tracking-wide text-white capitalize">Modify {activeTab} Data</h1>
             <p className="text-xs text-stone-500 uppercase tracking-widest mt-1">Secured Console (Connected to Supabase)</p>
           </div>
-          <div className="flex items-center space-x-3 bg-stone-900 border border-stone-800 px-4 py-2 rounded-xl text-xs text-stone-300">
+          <div className="flex items-center space-x-3 bg-stone-900 border border-stone-800 px-4 py-2 rounded-xl text-xs text-stone-300 flex-shrink-0">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
             <span>Database Status: Active</span>
           </div>
@@ -391,7 +433,7 @@ export default function AdminPanel({
         <div className="space-y-6">
           {/* General Sub-tab Form */}
           {activeTab === 'general' && (
-            <form onSubmit={saveGeneralAndAbout} className="p-8 bg-stone-900 border border-stone-800 rounded-2xl max-w-2xl space-y-6">
+            <form onSubmit={saveGeneralAndAbout} className="p-4 sm:p-8 bg-stone-900 border border-stone-800 rounded-2xl max-w-2xl space-y-6">
               <h3 className="font-serif text-lg font-bold text-white">General Information & About Settings</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -408,18 +450,18 @@ export default function AdminPanel({
                 </div>
                 <div className="md:col-span-2">
                   <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Owner's Image</label>
-                  <div className="flex items-center space-x-4">
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                     {formOwnerImageUrl && (
-                      <div className="w-10 h-10 border border-stone-800 rounded bg-stone-950 flex items-center justify-center p-0 overflow-hidden flex-shrink-0">
+                      <div className="w-10 h-10 border border-stone-800 rounded bg-stone-950 flex items-center justify-center p-0 overflow-hidden flex-shrink-0 mx-auto sm:mx-0">
                         <img src={formOwnerImageUrl} alt="Owner preview" className="w-full h-full object-cover" />
                       </div>
                     )}
-                    <div className="flex-grow flex items-center space-x-2">
+                    <div className="flex-grow flex items-center space-x-2 w-full">
                       <input
                         type="text"
                         value={formOwnerImageUrl.startsWith('data:') ? '[Uploaded Image Base64 Data]' : formOwnerImageUrl}
                         onChange={(e) => setFormOwnerImageUrl(e.target.value)}
-                        className="flex-grow py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500"
+                        className="flex-grow py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500 min-w-0"
                         placeholder="Image URL or upload local file"
                       />
                       <label className="px-4 py-2.5 bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white text-xs font-semibold rounded cursor-pointer transition flex-shrink-0">
@@ -448,18 +490,18 @@ export default function AdminPanel({
                 </div>
                 <div className="md:col-span-2">
                   <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Website Logo Image</label>
-                  <div className="flex items-center space-x-4">
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                     {formLogoUrl && (
-                      <div className="w-10 h-10 border border-stone-800 rounded bg-stone-950 flex items-center justify-center p-0 overflow-hidden flex-shrink-0">
+                      <div className="w-10 h-10 border border-stone-800 rounded bg-stone-950 flex items-center justify-center p-0 overflow-hidden flex-shrink-0 mx-auto sm:mx-0">
                         <img src={formLogoUrl} alt="Logo preview" className="w-full h-full object-cover" />
                       </div>
                     )}
-                    <div className="flex-grow flex items-center space-x-2">
+                    <div className="flex-grow flex items-center space-x-2 w-full">
                       <input
                         type="text"
                         value={formLogoUrl.startsWith('data:') ? '[Uploaded Image Base64 Data]' : formLogoUrl}
                         onChange={(e) => setFormLogoUrl(e.target.value)}
-                        className="flex-grow py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500"
+                        className="flex-grow py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500 min-w-0"
                         placeholder="Image URL or upload local file"
                       />
                       <label className="px-4 py-2.5 bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white text-xs font-semibold rounded cursor-pointer transition flex-shrink-0">
@@ -499,7 +541,7 @@ export default function AdminPanel({
 
           {/* Hero Sub-tab Form */}
           {activeTab === 'hero' && (
-            <form onSubmit={saveHeroImages} className="p-8 bg-stone-900 border border-stone-800 rounded-2xl max-w-2xl space-y-6">
+            <form onSubmit={saveHeroImages} className="p-4 sm:p-8 bg-stone-900 border border-stone-800 rounded-2xl max-w-2xl space-y-6">
               <div className="flex justify-between items-center border-b border-stone-800 pb-3">
                 <h3 className="font-serif text-lg font-bold text-white">Hero Slide Images</h3>
                 <button
@@ -514,39 +556,41 @@ export default function AdminPanel({
                 {heroUrls.map((url, index) => (
                   <div key={index} className="space-y-1">
                     <label className="block text-xs uppercase font-bold text-stone-400">Slide Image {index + 1}</label>
-                    <div className="flex items-center space-x-3">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                       <input
                         type="text"
                         value={url.startsWith('data:') ? '[Uploaded Image Base64 Data]' : url}
                         onChange={(e) => updateHeroUrl(index, e.target.value)}
-                        className="flex-grow py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500"
+                        className="flex-grow py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500 min-w-0"
                         placeholder="Image URL or upload local file"
                       />
-                      <label className="px-4 py-2.5 bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white text-xs font-semibold rounded cursor-pointer transition flex-shrink-0">
-                        Upload
-                        <input
-                          type="file"
-                          accept="image/*"
-                          className="hidden"
-                          onChange={(e) => {
-                            if (e.target.files && e.target.files[0]) {
-                              handleImageUpload(index, e.target.files[0]);
-                            }
-                          }}
-                        />
-                      </label>
-                      {heroUrls.length > 1 && (
-                        <button
-                          type="button"
-                          onClick={() => {
-                            const updated = heroUrls.filter((_, idx) => idx !== index);
-                            setHeroUrls(updated);
-                          }}
-                          className="px-3 py-2.5 bg-red-950/20 border border-red-500/20 text-red-400 hover:bg-red-500 hover:text-white text-xs font-semibold rounded transition cursor-pointer"
-                        >
-                          Remove
-                        </button>
-                      )}
+                      <div className="flex items-center space-x-2">
+                        <label className="flex-grow sm:flex-grow-0 text-center px-4 py-2.5 bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white text-xs font-semibold rounded cursor-pointer transition">
+                          Upload
+                          <input
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            onChange={(e) => {
+                              if (e.target.files && e.target.files[0]) {
+                                handleImageUpload(index, e.target.files[0]);
+                              }
+                            }}
+                          />
+                        </label>
+                        {heroUrls.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const updated = heroUrls.filter((_, idx) => idx !== index);
+                              setHeroUrls(updated);
+                            }}
+                            className="flex-grow sm:flex-grow-0 text-center px-3 py-2.5 bg-red-950/20 border border-red-500/20 text-red-400 hover:bg-red-500 hover:text-white text-xs font-semibold rounded transition cursor-pointer"
+                          >
+                            Remove
+                          </button>
+                        )}
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -559,7 +603,7 @@ export default function AdminPanel({
 
           {/* Management Sub-tab Form */}
           {activeTab === 'management' && (
-            <form onSubmit={saveManagement} className="p-8 bg-stone-900 border border-stone-800 rounded-2xl max-w-3xl space-y-8">
+            <form onSubmit={saveManagement} className="p-4 sm:p-8 bg-stone-900 border border-stone-800 rounded-2xl max-w-3xl space-y-8">
               <div className="flex justify-between items-center border-b border-stone-800 pb-3">
                 <h3 className="font-serif text-lg font-bold text-white">Management Executives Info</h3>
                 <button
@@ -600,15 +644,15 @@ export default function AdminPanel({
                     </div>
                     <div>
                       <label className="block text-[10px] uppercase text-stone-500 mb-1">Custom Image URL (Optional)</label>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                         <input
                           type="text"
                           value={member.imageUrl && member.imageUrl.startsWith('data:') ? '[Uploaded Image Base64 Data]' : (member.imageUrl || '')}
                           onChange={(e) => updateManagementField(index, 'imageUrl', e.target.value)}
-                          className="flex-grow py-2 px-3 bg-stone-950 border border-stone-800 rounded text-xs text-white"
+                          className="flex-grow py-2 px-3 bg-stone-950 border border-stone-800 rounded text-xs text-white min-w-0"
                           placeholder="Leave empty for default portrait"
                         />
-                        <label className="px-3 py-2 bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white text-xs font-semibold rounded cursor-pointer transition flex-shrink-0">
+                        <label className="text-center px-3 py-2 bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white text-xs font-semibold rounded cursor-pointer transition flex-shrink-0">
                           Upload
                           <input
                             type="file"
@@ -646,7 +690,7 @@ export default function AdminPanel({
 
           {/* Team Sub-tab Form */}
           {activeTab === 'team' && (
-            <form onSubmit={saveTeam} className="p-8 bg-stone-900 border border-stone-800 rounded-2xl max-w-3xl space-y-8">
+            <form onSubmit={saveTeam} className="p-4 sm:p-8 bg-stone-900 border border-stone-800 rounded-2xl max-w-3xl space-y-8">
               <div className="flex justify-between items-center border-b border-stone-800 pb-3">
                 <h3 className="font-serif text-lg font-bold text-white">Team Members Info</h3>
                 <button
@@ -687,15 +731,15 @@ export default function AdminPanel({
                     </div>
                     <div>
                       <label className="block text-[10px] uppercase text-stone-500 mb-1">Custom Image URL (Optional)</label>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                         <input
                           type="text"
                           value={member.imageUrl && member.imageUrl.startsWith('data:') ? '[Uploaded Image Base64 Data]' : (member.imageUrl || '')}
                           onChange={(e) => updateTeamField(index, 'imageUrl', e.target.value)}
-                          className="flex-grow py-2 px-3 bg-stone-950 border border-stone-800 rounded text-xs text-white"
+                          className="flex-grow py-2 px-3 bg-stone-950 border border-stone-800 rounded text-xs text-white min-w-0"
                           placeholder="Leave empty for default portrait"
                         />
-                        <label className="px-3 py-2 bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white text-xs font-semibold rounded cursor-pointer transition flex-shrink-0">
+                        <label className="text-center px-3 py-2 bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white text-xs font-semibold rounded cursor-pointer transition flex-shrink-0">
                           Upload
                           <input
                             type="file"
@@ -729,7 +773,7 @@ export default function AdminPanel({
 
           {/* Services Sub-tab Form */}
           {activeTab === 'services' && (
-            <form onSubmit={saveServices} className="p-8 bg-stone-900 border border-stone-800 rounded-2xl max-w-3xl space-y-8">
+            <form onSubmit={saveServices} className="p-4 sm:p-8 bg-stone-900 border border-stone-800 rounded-2xl max-w-3xl space-y-8">
               <div className="flex justify-between items-center border-b border-stone-800 pb-3">
                 <h3 className="font-serif text-lg font-bold text-white">Services & Amenities Settings</h3>
                 <button
@@ -764,15 +808,15 @@ export default function AdminPanel({
                     </div>
                     <div>
                       <label className="block text-[10px] uppercase text-stone-500 mb-1">Custom Image URL (Optional)</label>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                         <input
                           type="text"
                           value={service.imageUrl && service.imageUrl.startsWith('data:') ? '[Uploaded Image Base64 Data]' : (service.imageUrl || '')}
                           onChange={(e) => updateServicesField(index, 'imageUrl', e.target.value)}
-                          className="flex-grow py-2 px-3 bg-stone-950 border border-stone-800 rounded text-xs text-white"
+                          className="flex-grow py-2 px-3 bg-stone-950 border border-stone-800 rounded text-xs text-white min-w-0"
                           placeholder="Leave empty for default photo"
                         />
-                        <label className="px-3 py-2 bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white text-xs font-semibold rounded cursor-pointer transition flex-shrink-0">
+                        <label className="text-center px-3 py-2 bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white text-xs font-semibold rounded cursor-pointer transition flex-shrink-0">
                           Upload
                           <input
                             type="file"
