@@ -10,6 +10,7 @@ interface AdminPanelProps {
     hotelName: string;
     ownerName: string;
     ownerMessage: string;
+    ownerImageUrl?: string;
     techPartnerName: string;
     techPartnerUrl: string;
     hotelPhone: string;
@@ -63,6 +64,7 @@ export default function AdminPanel({
   const [formHotelName, setFormHotelName] = useState(pageData.hotelName);
   const [formOwnerName, setFormOwnerName] = useState(pageData.ownerName);
   const [formOwnerMessage, setFormOwnerMessage] = useState(pageData.ownerMessage);
+  const [formOwnerImageUrl, setFormOwnerImageUrl] = useState(pageData.ownerImageUrl || '');
   const [formTechPartnerName, setFormTechPartnerName] = useState(pageData.techPartnerName);
   const [formTechPartnerUrl, setFormTechPartnerUrl] = useState(pageData.techPartnerUrl);
   const [formHotelPhone, setFormHotelPhone] = useState(pageData.hotelPhone);
@@ -130,7 +132,8 @@ export default function AdminPanel({
     });
     await onSaveSection('about', {
       ownerName: formOwnerName,
-      ownerMessage: formOwnerMessage
+      ownerMessage: formOwnerMessage,
+      ownerImageUrl: formOwnerImageUrl
     });
     alert('General and About configurations saved successfully to Supabase!');
   };
@@ -211,6 +214,16 @@ export default function AdminPanel({
     reader.onloadend = () => {
       if (typeof reader.result === 'string') {
         setFormLogoUrl(reader.result);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleOwnerImageUpload = (file: File) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      if (typeof reader.result === 'string') {
+        setFormOwnerImageUrl(reader.result);
       }
     };
     reader.readAsDataURL(file);
@@ -392,6 +405,38 @@ export default function AdminPanel({
                 <div className="md:col-span-2">
                   <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Owner's Message (The Visionary)</label>
                   <textarea rows={4} value={formOwnerMessage} onChange={(e) => setFormOwnerMessage(e.target.value)} className="w-full py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" />
+                </div>
+                <div className="md:col-span-2">
+                  <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Owner's Image</label>
+                  <div className="flex items-center space-x-4">
+                    {formOwnerImageUrl && (
+                      <div className="w-10 h-10 border border-stone-800 rounded bg-stone-950 flex items-center justify-center p-0 overflow-hidden flex-shrink-0">
+                        <img src={formOwnerImageUrl} alt="Owner preview" className="w-full h-full object-cover" />
+                      </div>
+                    )}
+                    <div className="flex-grow flex items-center space-x-2">
+                      <input
+                        type="text"
+                        value={formOwnerImageUrl.startsWith('data:') ? '[Uploaded Image Base64 Data]' : formOwnerImageUrl}
+                        onChange={(e) => setFormOwnerImageUrl(e.target.value)}
+                        className="flex-grow py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500"
+                        placeholder="Image URL or upload local file"
+                      />
+                      <label className="px-4 py-2.5 bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white text-xs font-semibold rounded cursor-pointer transition flex-shrink-0">
+                        Upload
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => {
+                            if (e.target.files && e.target.files[0]) {
+                              handleOwnerImageUpload(e.target.files[0]);
+                            }
+                          }}
+                        />
+                      </label>
+                    </div>
+                  </div>
                 </div>
                 <div>
                   <label className="block text-xs uppercase font-bold text-stone-500 mb-2">Tech Partner Name (Locked)</label>

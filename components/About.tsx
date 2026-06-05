@@ -60,7 +60,7 @@ export default function About({ isClassicDark, scrollTo, pageData }: AboutProps)
                   <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-300 opacity-20 group-hover:opacity-50 transition duration-500 blur-sm" />
                   <div className="relative w-52 h-52 sm:w-56 sm:h-56 rounded-2xl overflow-hidden border border-amber-500/20 bg-stone-950">
                     <img
-                      src={ownerImg.src}
+                      src={pageData?.ownerImageUrl || ownerImg.src}
                       alt="Hotel Owner"
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
