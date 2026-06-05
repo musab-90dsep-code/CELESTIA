@@ -28,7 +28,7 @@ export default function Hero({ databaseImages }: HeroProps) {
   }, [images.length]);
 
   return (
-    <section id="hero" className="relative w-full h-[330px] overflow-hidden">
+    <section id="hero" className="relative w-full h-[420px] overflow-hidden">
       {images.map((image, index) => (
         <div
           key={index}

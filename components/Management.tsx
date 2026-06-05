@@ -106,8 +106,8 @@ export default function Management({ isClassicDark, databaseMembers }: Managemen
               onClick={() => setSelectedMember(member)}
               className={`group cursor-pointer rounded-2xl overflow-hidden border transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl ${
                 isClassicDark
-                  ? 'bg-stone-900/60 border-stone-850 hover:border-amber-500/30'
-                  : 'bg-white border-stone-250 hover:border-emerald-600/30'
+                  ? 'bg-stone-900/60 border-stone-800 hover:border-amber-500/30'
+                  : 'bg-white border-stone-200 hover:border-emerald-600/30'
               }`}
             >
               {/* Member Photo */}
@@ -152,7 +152,7 @@ export default function Management({ isClassicDark, databaseMembers }: Managemen
             <button
               onClick={() => setSelectedMember(null)}
               className={`absolute top-4 right-4 p-2 rounded-full hover:bg-stone-500/10 transition-colors ${
-                isClassicDark ? 'text-stone-400 hover:text-stone-100' : 'text-stone-550'
+                isClassicDark ? 'text-stone-400 hover:text-stone-100' : 'text-stone-500'
               }`}
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

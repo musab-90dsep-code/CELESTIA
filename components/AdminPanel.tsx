@@ -251,7 +251,7 @@ export default function AdminPanel({
         <div className="relative w-full max-w-md p-8 bg-stone-900 border border-stone-800 rounded-2xl shadow-2xl text-stone-100">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 text-stone-400 hover:text-white rounded-full hover:bg-stone-850 transition cursor-pointer"
+            className="absolute top-4 right-4 p-2 text-stone-400 hover:text-white rounded-full hover:bg-stone-800 transition cursor-pointer"
           >
             &times;
           </button>
@@ -286,7 +286,7 @@ export default function AdminPanel({
               />
             </div>
             {loginError && <p className="text-xs text-red-500 font-semibold mt-1">{loginError}</p>}
-            <button type="submit" className="w-full py-3 bg-amber-500 hover:bg-amber-450 text-stone-950 font-bold uppercase tracking-widest text-xs transition rounded-lg cursor-pointer">
+            <button type="submit" className="w-full py-3 bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold uppercase tracking-widest text-xs transition rounded-lg cursor-pointer">
               Authenticate Desk
             </button>
           </form>
@@ -308,7 +308,7 @@ export default function AdminPanel({
           <nav className="space-y-2">
             <button
               onClick={() => setActiveTab('general')}
-              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${activeTab === 'general' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-850 hover:text-white'
+              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${activeTab === 'general' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-800 hover:text-white'
                 }`}
             >
               <Settings className="w-4 h-4" />
@@ -317,7 +317,7 @@ export default function AdminPanel({
 
             <button
               onClick={() => setActiveTab('hero')}
-              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${activeTab === 'hero' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-850 hover:text-white'
+              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${activeTab === 'hero' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-800 hover:text-white'
                 }`}
             >
               <Image className="w-4 h-4" />
@@ -326,7 +326,7 @@ export default function AdminPanel({
 
             <button
               onClick={() => setActiveTab('management')}
-              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${activeTab === 'management' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-850 hover:text-white'
+              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${activeTab === 'management' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-800 hover:text-white'
                 }`}
             >
               <Award className="w-4 h-4" />
@@ -335,7 +335,7 @@ export default function AdminPanel({
 
             <button
               onClick={() => setActiveTab('team')}
-              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${activeTab === 'team' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-850 hover:text-white'
+              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${activeTab === 'team' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-800 hover:text-white'
                 }`}
             >
               <Heart className="w-4 h-4" />
@@ -344,7 +344,7 @@ export default function AdminPanel({
 
             <button
               onClick={() => setActiveTab('services')}
-              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${activeTab === 'services' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-850 hover:text-white'
+              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${activeTab === 'services' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-800 hover:text-white'
                 }`}
             >
               <Shield className="w-4 h-4" />
@@ -383,23 +383,23 @@ export default function AdminPanel({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Hotel Name</label>
-                  <input type="text" value={formHotelName} onChange={(e) => setFormHotelName(e.target.value)} className="w-full py-2.5 px-4 bg-stone-955 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" />
+                  <input type="text" value={formHotelName} onChange={(e) => setFormHotelName(e.target.value)} className="w-full py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" />
                 </div>
                 <div>
                   <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Owner Name</label>
-                  <input type="text" value={formOwnerName} onChange={(e) => setFormOwnerName(e.target.value)} className="w-full py-2.5 px-4 bg-stone-955 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" />
+                  <input type="text" value={formOwnerName} onChange={(e) => setFormOwnerName(e.target.value)} className="w-full py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" />
                 </div>
                 <div className="md:col-span-2">
                   <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Owner's Message (The Visionary)</label>
-                  <textarea rows={4} value={formOwnerMessage} onChange={(e) => setFormOwnerMessage(e.target.value)} className="w-full py-2.5 px-4 bg-stone-955 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" />
+                  <textarea rows={4} value={formOwnerMessage} onChange={(e) => setFormOwnerMessage(e.target.value)} className="w-full py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" />
                 </div>
                 <div>
                   <label className="block text-xs uppercase font-bold text-stone-500 mb-2">Tech Partner Name (Locked)</label>
-                  <input type="text" value={formTechPartnerName} disabled className="w-full py-2.5 px-4 bg-stone-900 border border-stone-850 rounded text-xs text-stone-500 cursor-not-allowed focus:outline-none" />
+                  <input type="text" value={formTechPartnerName} disabled className="w-full py-2.5 px-4 bg-stone-900 border border-stone-800 rounded text-xs text-stone-500 cursor-not-allowed focus:outline-none" />
                 </div>
                 <div>
                   <label className="block text-xs uppercase font-bold text-stone-500 mb-2">Tech Partner URL (Locked)</label>
-                  <input type="text" value={formTechPartnerUrl} disabled className="w-full py-2.5 px-4 bg-stone-900 border border-stone-850 rounded text-xs text-stone-500 cursor-not-allowed focus:outline-none" />
+                  <input type="text" value={formTechPartnerUrl} disabled className="w-full py-2.5 px-4 bg-stone-900 border border-stone-800 rounded text-xs text-stone-500 cursor-not-allowed focus:outline-none" />
                 </div>
                 <div className="md:col-span-2">
                   <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Website Logo Image</label>
@@ -414,10 +414,10 @@ export default function AdminPanel({
                         type="text"
                         value={formLogoUrl.startsWith('data:') ? '[Uploaded Image Base64 Data]' : formLogoUrl}
                         onChange={(e) => setFormLogoUrl(e.target.value)}
-                        className="flex-grow py-2.5 px-4 bg-stone-955 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500"
+                        className="flex-grow py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500"
                         placeholder="Image URL or upload local file"
                       />
-                      <label className="px-4 py-2.5 bg-stone-800 hover:bg-stone-755 text-stone-300 hover:text-white text-xs font-semibold rounded cursor-pointer transition flex-shrink-0">
+                      <label className="px-4 py-2.5 bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white text-xs font-semibold rounded cursor-pointer transition flex-shrink-0">
                         Upload
                         <input
                           type="file"
@@ -435,19 +435,19 @@ export default function AdminPanel({
                 </div>
                 <div>
                   <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Hotel Phone</label>
-                  <input type="text" value={formHotelPhone} onChange={(e) => setFormHotelPhone(e.target.value)} className="w-full py-2.5 px-4 bg-stone-955 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" />
+                  <input type="text" value={formHotelPhone} onChange={(e) => setFormHotelPhone(e.target.value)} className="w-full py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" />
                 </div>
                 <div>
                   <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Hotel Email</label>
-                  <input type="email" value={formHotelEmail} onChange={(e) => setFormHotelEmail(e.target.value)} className="w-full py-2.5 px-4 bg-stone-955 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" />
+                  <input type="email" value={formHotelEmail} onChange={(e) => setFormHotelEmail(e.target.value)} className="w-full py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" />
                 </div>
                 <div className="md:col-span-2">
                   <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Hotel Physical Address</label>
-                  <textarea rows={2} value={formHotelAddress} onChange={(e) => setFormHotelAddress(e.target.value)} className="w-full py-2.5 px-4 bg-stone-955 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" />
+                  <textarea rows={2} value={formHotelAddress} onChange={(e) => setFormHotelAddress(e.target.value)} className="w-full py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" />
                 </div>
               </div>
               <div className="flex justify-end pt-4">
-                <button type="submit" className="px-6 py-2.5 bg-amber-500 text-stone-950 font-bold uppercase tracking-widest text-[10px] rounded hover:bg-amber-450 transition cursor-pointer">Save Info</button>
+                <button type="submit" className="px-6 py-2.5 bg-amber-500 text-stone-950 font-bold uppercase tracking-widest text-[10px] rounded hover:bg-amber-400 transition cursor-pointer">Save Info</button>
               </div>
             </form>
           )}
@@ -460,7 +460,7 @@ export default function AdminPanel({
                 <button
                   type="button"
                   onClick={() => setHeroUrls([...heroUrls, ''])}
-                  className="px-3 py-1.5 bg-stone-800 hover:bg-stone-750 text-amber-500 hover:text-amber-450 text-xs font-semibold rounded uppercase tracking-wider transition cursor-pointer"
+                  className="px-3 py-1.5 bg-stone-800 hover:bg-stone-700 text-amber-500 hover:text-amber-450 text-xs font-semibold rounded uppercase tracking-wider transition cursor-pointer"
                 >
                   + Add Slide
                 </button>
@@ -474,10 +474,10 @@ export default function AdminPanel({
                         type="text"
                         value={url.startsWith('data:') ? '[Uploaded Image Base64 Data]' : url}
                         onChange={(e) => updateHeroUrl(index, e.target.value)}
-                        className="flex-grow py-2.5 px-4 bg-stone-955 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500"
+                        className="flex-grow py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500"
                         placeholder="Image URL or upload local file"
                       />
-                      <label className="px-4 py-2.5 bg-stone-800 hover:bg-stone-755 text-stone-300 hover:text-white text-xs font-semibold rounded cursor-pointer transition flex-shrink-0">
+                      <label className="px-4 py-2.5 bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white text-xs font-semibold rounded cursor-pointer transition flex-shrink-0">
                         Upload
                         <input
                           type="file"
@@ -507,7 +507,7 @@ export default function AdminPanel({
                 ))}
               </div>
               <div className="flex justify-end pt-4">
-                <button type="submit" className="px-6 py-2.5 bg-amber-500 text-stone-950 font-bold uppercase tracking-widest text-[10px] rounded hover:bg-amber-450 transition cursor-pointer">Save Slides</button>
+                <button type="submit" className="px-6 py-2.5 bg-amber-500 text-stone-950 font-bold uppercase tracking-widest text-[10px] rounded hover:bg-amber-400 transition cursor-pointer">Save Slides</button>
               </div>
             </form>
           )}
@@ -520,7 +520,7 @@ export default function AdminPanel({
                 <button
                   type="button"
                   onClick={() => setManagementList([...managementList, { id: String(Date.now()), name: '', designation: 'New Designation', email: '', phone: '', bio: '', imageUrl: '' }])}
-                  className="px-3 py-1.5 bg-stone-800 hover:bg-stone-750 text-amber-500 hover:text-amber-450 text-xs font-semibold rounded uppercase tracking-wider transition cursor-pointer"
+                  className="px-3 py-1.5 bg-stone-800 hover:bg-stone-700 text-amber-500 hover:text-amber-450 text-xs font-semibold rounded uppercase tracking-wider transition cursor-pointer"
                 >
                   + Add Executive
                 </button>
@@ -551,7 +551,7 @@ export default function AdminPanel({
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-[10px] uppercase text-stone-500 mb-1">Full Name</label>
-                      <input type="text" value={member.name} onChange={(e) => updateManagementField(index, 'name', e.target.value)} className="w-full py-2 px-3 bg-stone-955 border border-stone-800 rounded text-xs text-white" />
+                      <input type="text" value={member.name} onChange={(e) => updateManagementField(index, 'name', e.target.value)} className="w-full py-2 px-3 bg-stone-950 border border-stone-800 rounded text-xs text-white" />
                     </div>
                     <div>
                       <label className="block text-[10px] uppercase text-stone-500 mb-1">Custom Image URL (Optional)</label>
@@ -560,10 +560,10 @@ export default function AdminPanel({
                           type="text"
                           value={member.imageUrl && member.imageUrl.startsWith('data:') ? '[Uploaded Image Base64 Data]' : (member.imageUrl || '')}
                           onChange={(e) => updateManagementField(index, 'imageUrl', e.target.value)}
-                          className="flex-grow py-2 px-3 bg-stone-955 border border-stone-800 rounded text-xs text-white"
+                          className="flex-grow py-2 px-3 bg-stone-950 border border-stone-800 rounded text-xs text-white"
                           placeholder="Leave empty for default portrait"
                         />
-                        <label className="px-3 py-2 bg-stone-800 hover:bg-stone-755 text-stone-300 hover:text-white text-xs font-semibold rounded cursor-pointer transition flex-shrink-0">
+                        <label className="px-3 py-2 bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white text-xs font-semibold rounded cursor-pointer transition flex-shrink-0">
                           Upload
                           <input
                             type="file"
@@ -580,21 +580,21 @@ export default function AdminPanel({
                     </div>
                     <div>
                       <label className="block text-[10px] uppercase text-stone-500 mb-1">Email</label>
-                      <input type="text" value={member.email} onChange={(e) => updateManagementField(index, 'email', e.target.value)} className="w-full py-2 px-3 bg-stone-955 border border-stone-800 rounded text-xs text-white" />
+                      <input type="text" value={member.email} onChange={(e) => updateManagementField(index, 'email', e.target.value)} className="w-full py-2 px-3 bg-stone-950 border border-stone-800 rounded text-xs text-white" />
                     </div>
                     <div>
                       <label className="block text-[10px] uppercase text-stone-500 mb-1">Phone</label>
-                      <input type="text" value={member.phone} onChange={(e) => updateManagementField(index, 'phone', e.target.value)} className="w-full py-2 px-3 bg-stone-955 border border-stone-800 rounded text-xs text-white" />
+                      <input type="text" value={member.phone} onChange={(e) => updateManagementField(index, 'phone', e.target.value)} className="w-full py-2 px-3 bg-stone-950 border border-stone-800 rounded text-xs text-white" />
                     </div>
                     <div className="md:col-span-2">
                       <label className="block text-[10px] uppercase text-stone-500 mb-1">Biography & Work Role</label>
-                      <textarea rows={2} value={member.bio} onChange={(e) => updateManagementField(index, 'bio', e.target.value)} className="w-full py-2 px-3 bg-stone-955 border border-stone-800 rounded text-xs text-white" />
+                      <textarea rows={2} value={member.bio} onChange={(e) => updateManagementField(index, 'bio', e.target.value)} className="w-full py-2 px-3 bg-stone-950 border border-stone-800 rounded text-xs text-white" />
                     </div>
                   </div>
                 </div>
               ))}
               <div className="flex justify-end pt-4">
-                <button type="submit" className="px-6 py-2.5 bg-amber-500 text-stone-950 font-bold uppercase tracking-widest text-[10px] rounded hover:bg-amber-450 transition cursor-pointer">Save Management Data</button>
+                <button type="submit" className="px-6 py-2.5 bg-amber-500 text-stone-950 font-bold uppercase tracking-widest text-[10px] rounded hover:bg-amber-400 transition cursor-pointer">Save Management Data</button>
               </div>
             </form>
           )}
@@ -607,7 +607,7 @@ export default function AdminPanel({
                 <button
                   type="button"
                   onClick={() => setTeamList([...teamList, { id: String(Date.now()), name: '', role: 'New Role', quote: '', experience: '', imageUrl: '' }])}
-                  className="px-3 py-1.5 bg-stone-800 hover:bg-stone-755 text-amber-500 hover:text-amber-450 text-xs font-semibold rounded uppercase tracking-wider transition cursor-pointer"
+                  className="px-3 py-1.5 bg-stone-800 hover:bg-stone-700 text-amber-500 hover:text-amber-450 text-xs font-semibold rounded uppercase tracking-wider transition cursor-pointer"
                 >
                   + Add Team Member
                 </button>
@@ -638,7 +638,7 @@ export default function AdminPanel({
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-[10px] uppercase text-stone-500 mb-1">Full Name</label>
-                      <input type="text" value={member.name} onChange={(e) => updateTeamField(index, 'name', e.target.value)} className="w-full py-2 px-3 bg-stone-955 border border-stone-800 rounded text-xs text-white" />
+                      <input type="text" value={member.name} onChange={(e) => updateTeamField(index, 'name', e.target.value)} className="w-full py-2 px-3 bg-stone-950 border border-stone-800 rounded text-xs text-white" />
                     </div>
                     <div>
                       <label className="block text-[10px] uppercase text-stone-500 mb-1">Custom Image URL (Optional)</label>
@@ -647,10 +647,10 @@ export default function AdminPanel({
                           type="text"
                           value={member.imageUrl && member.imageUrl.startsWith('data:') ? '[Uploaded Image Base64 Data]' : (member.imageUrl || '')}
                           onChange={(e) => updateTeamField(index, 'imageUrl', e.target.value)}
-                          className="flex-grow py-2 px-3 bg-stone-955 border border-stone-800 rounded text-xs text-white"
+                          className="flex-grow py-2 px-3 bg-stone-950 border border-stone-800 rounded text-xs text-white"
                           placeholder="Leave empty for default portrait"
                         />
-                        <label className="px-3 py-2 bg-stone-800 hover:bg-stone-755 text-stone-300 hover:text-white text-xs font-semibold rounded cursor-pointer transition flex-shrink-0">
+                        <label className="px-3 py-2 bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white text-xs font-semibold rounded cursor-pointer transition flex-shrink-0">
                           Upload
                           <input
                             type="file"
@@ -667,17 +667,17 @@ export default function AdminPanel({
                     </div>
                     <div>
                       <label className="block text-[10px] uppercase text-stone-500 mb-1">Professional Experience summary</label>
-                      <input type="text" value={member.experience} onChange={(e) => updateTeamField(index, 'experience', e.target.value)} className="w-full py-2 px-3 bg-stone-955 border border-stone-800 rounded text-xs text-white" />
+                      <input type="text" value={member.experience} onChange={(e) => updateTeamField(index, 'experience', e.target.value)} className="w-full py-2 px-3 bg-stone-950 border border-stone-800 rounded text-xs text-white" />
                     </div>
                     <div className="md:col-span-2">
                       <label className="block text-[10px] uppercase text-stone-500 mb-1">Personal Hospitality Quote</label>
-                      <input type="text" value={member.quote} onChange={(e) => updateTeamField(index, 'quote', e.target.value)} className="w-full py-2 px-3 bg-stone-955 border border-stone-800 rounded text-xs text-white" />
+                      <input type="text" value={member.quote} onChange={(e) => updateTeamField(index, 'quote', e.target.value)} className="w-full py-2 px-3 bg-stone-950 border border-stone-800 rounded text-xs text-white" />
                     </div>
                   </div>
                 </div>
               ))}
               <div className="flex justify-end pt-4">
-                <button type="submit" className="px-6 py-2.5 bg-amber-500 text-stone-950 font-bold uppercase tracking-widest text-[10px] rounded hover:bg-amber-450 transition cursor-pointer">Save Team Data</button>
+                <button type="submit" className="px-6 py-2.5 bg-amber-500 text-stone-950 font-bold uppercase tracking-widest text-[10px] rounded hover:bg-amber-400 transition cursor-pointer">Save Team Data</button>
               </div>
             </form>
           )}
@@ -690,7 +690,7 @@ export default function AdminPanel({
                 <button
                   type="button"
                   onClick={() => setServicesList([...servicesList, { id: String(Date.now()), title: 'New Service', description: '', imageUrl: '' }])}
-                  className="px-3 py-1.5 bg-stone-800 hover:bg-stone-755 text-amber-500 hover:text-amber-450 text-xs font-semibold rounded uppercase tracking-wider transition cursor-pointer"
+                  className="px-3 py-1.5 bg-stone-800 hover:bg-stone-700 text-amber-500 hover:text-amber-450 text-xs font-semibold rounded uppercase tracking-wider transition cursor-pointer"
                 >
                   + Add Service
                 </button>
@@ -715,7 +715,7 @@ export default function AdminPanel({
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-[10px] uppercase text-stone-500 mb-1">Title</label>
-                      <input type="text" value={service.title} onChange={(e) => updateServicesField(index, 'title', e.target.value)} className="w-full py-2 px-3 bg-stone-955 border border-stone-800 rounded text-xs text-white" />
+                      <input type="text" value={service.title} onChange={(e) => updateServicesField(index, 'title', e.target.value)} className="w-full py-2 px-3 bg-stone-950 border border-stone-800 rounded text-xs text-white" />
                     </div>
                     <div>
                       <label className="block text-[10px] uppercase text-stone-500 mb-1">Custom Image URL (Optional)</label>
@@ -724,10 +724,10 @@ export default function AdminPanel({
                           type="text"
                           value={service.imageUrl && service.imageUrl.startsWith('data:') ? '[Uploaded Image Base64 Data]' : (service.imageUrl || '')}
                           onChange={(e) => updateServicesField(index, 'imageUrl', e.target.value)}
-                          className="flex-grow py-2 px-3 bg-stone-955 border border-stone-800 rounded text-xs text-white"
+                          className="flex-grow py-2 px-3 bg-stone-950 border border-stone-800 rounded text-xs text-white"
                           placeholder="Leave empty for default photo"
                         />
-                        <label className="px-3 py-2 bg-stone-800 hover:bg-stone-755 text-stone-300 hover:text-white text-xs font-semibold rounded cursor-pointer transition flex-shrink-0">
+                        <label className="px-3 py-2 bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white text-xs font-semibold rounded cursor-pointer transition flex-shrink-0">
                           Upload
                           <input
                             type="file"
@@ -744,13 +744,13 @@ export default function AdminPanel({
                     </div>
                     <div className="md:col-span-2">
                       <label className="block text-[10px] uppercase text-stone-500 mb-1">Service Description</label>
-                      <textarea rows={2} value={service.description} onChange={(e) => updateServicesField(index, 'description', e.target.value)} className="w-full py-2 px-3 bg-stone-955 border border-stone-800 rounded text-xs text-white" />
+                      <textarea rows={2} value={service.description} onChange={(e) => updateServicesField(index, 'description', e.target.value)} className="w-full py-2 px-3 bg-stone-950 border border-stone-800 rounded text-xs text-white" />
                     </div>
                   </div>
                 </div>
               ))}
               <div className="flex justify-end pt-4">
-                <button type="submit" className="px-6 py-2.5 bg-amber-500 text-stone-950 font-bold uppercase tracking-widest text-[10px] rounded hover:bg-amber-450 transition cursor-pointer">Save Services Data</button>
+                <button type="submit" className="px-6 py-2.5 bg-amber-500 text-stone-950 font-bold uppercase tracking-widest text-[10px] rounded hover:bg-amber-400 transition cursor-pointer">Save Services Data</button>
               </div>
             </form>
           )}

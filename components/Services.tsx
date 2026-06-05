@@ -83,7 +83,7 @@ export default function Services({ isClassicDark, databaseServices }: ServicesPr
       id="services"
       className={`py-16 relative overflow-hidden border-t transition-colors duration-500 ${
         isClassicDark 
-          ? 'bg-stone-905 text-stone-100 border-stone-900' 
+          ? 'bg-stone-950 text-stone-100 border-stone-900' 
           : 'bg-stone-50 text-stone-900 border-stone-200'
       }`}
     >
@@ -124,8 +124,8 @@ export default function Services({ isClassicDark, databaseServices }: ServicesPr
                 key={`${service.id}-${index}`}
                 className={`flex-shrink-0 w-[290px] sm:w-[360px] md:w-[380px] overflow-hidden rounded-2xl border transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl group flex flex-col ${
                   isClassicDark
-                    ? 'bg-stone-900/60 border-stone-850 hover:border-amber-500/30'
-                    : 'bg-white border-stone-250 hover:border-emerald-600/30'
+                    ? 'bg-stone-900/60 border-stone-800 hover:border-amber-500/30'
+                    : 'bg-white border-stone-200 hover:border-emerald-600/30'
                 }`}
               >
                 {/* Service Image */}

@@ -10,6 +10,7 @@ import Team from '../components/Team';
 import Services from '../components/Services';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
+import { Crown } from 'lucide-react';
 
 import { rooms } from '../lib/data';
 import { supabase } from '../lib/supabaseClient';
@@ -169,6 +170,28 @@ export default function Home() {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-stone-950 flex flex-col items-center justify-center text-stone-100 font-sans">
+        <div className="text-center space-y-6">
+          <div className="relative w-20 h-20 mx-auto flex items-center justify-center">
+            {/* Spinning luxury outer ring */}
+            <div className="absolute inset-0 border-2 border-amber-500/20 border-t-amber-500 rounded-full animate-spin" />
+            <Crown className="w-8 h-8 text-amber-400 animate-pulse" />
+          </div>
+          <div className="space-y-2">
+            <h2 className="font-serif text-2xl tracking-[0.2em] font-bold text-transparent bg-clip-text bg-gradient-to-r from-stone-100 via-amber-400 to-amber-200">
+              CELESTIA GRAND
+            </h2>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-stone-500 font-semibold">
+              Loading Luxury Experience...
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={`min-h-screen transition-colors duration-500 ${isClassicDark ? 'bg-stone-950 text-stone-100' : 'bg-stone-50 text-stone-900'}`} id="top">

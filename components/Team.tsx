@@ -117,8 +117,8 @@ export default function Team({ isClassicDark, databaseMembers }: TeamProps) {
               key={`${member.id}-${index}`}
               className={`flex-shrink-0 w-[240px] sm:w-[280px] md:w-[300px] group relative rounded-2xl overflow-hidden border transition-all duration-550 flex flex-col ${
                 isClassicDark
-                  ? 'bg-stone-900/40 border-stone-850 hover:border-amber-500/20'
-                  : 'bg-white border-stone-250 hover:border-emerald-600/20'
+                  ? 'bg-stone-900/40 border-stone-800 hover:border-amber-500/20'
+                  : 'bg-white border-stone-200 hover:border-emerald-600/20'
               }`}
             >
               {/* Image & Hover Quote Overlay */}

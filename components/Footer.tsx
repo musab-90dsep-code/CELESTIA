@@ -33,17 +33,16 @@ export default function Footer({ isClassicDark, scrollTo, onAdminClick, pageData
               Bespoke luxury residential living bridging security, serenity, and legendary 5-star service. Experience the zenith of hospitality.
             </p>
 
-            {/* Horizontal Simple Navigation Links */}
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs">
-              <button onClick={() => scrollTo('about')} className="hover:text-amber-450 transition-colors cursor-pointer text-stone-400">The Visionary</button>
-              <button onClick={() => scrollTo('management')} className="hover:text-amber-450 transition-colors cursor-pointer text-stone-400">Management</button>
-              <button onClick={() => scrollTo('team')} className="hover:text-amber-450 transition-colors cursor-pointer text-stone-400">Team</button>
-              <button onClick={() => scrollTo('services')} className="hover:text-amber-450 transition-colors cursor-pointer text-stone-400">Services</button>
-              <button onClick={() => scrollTo('contact')} className="hover:text-amber-450 transition-colors cursor-pointer text-stone-400">Contact</button>
+              <button onClick={() => scrollTo('about')} className="hover:text-amber-400 transition-colors cursor-pointer text-stone-400">The Visionary</button>
+              <button onClick={() => scrollTo('management')} className="hover:text-amber-400 transition-colors cursor-pointer text-stone-400">Management</button>
+              <button onClick={() => scrollTo('team')} className="hover:text-amber-400 transition-colors cursor-pointer text-stone-400">Team</button>
+              <button onClick={() => scrollTo('services')} className="hover:text-amber-400 transition-colors cursor-pointer text-stone-400">Services</button>
+              <button onClick={() => scrollTo('contact')} className="hover:text-amber-400 transition-colors cursor-pointer text-stone-400">Contact</button>
               {onAdminClick && (
                 <button 
                   onClick={onAdminClick} 
-                  className="hover:text-amber-450 transition-colors cursor-pointer text-stone-400 font-semibold border-l border-stone-800 pl-4"
+                  className="hover:text-amber-400 transition-colors cursor-pointer text-stone-400 font-semibold border-l border-stone-800 pl-4"
                   id="footer-admin-link"
                 >
                   Admin Panel
@@ -53,7 +52,7 @@ export default function Footer({ isClassicDark, scrollTo, onAdminClick, pageData
           </div>
 
           {/* Column 2: Tech Partner Marketing - Hasanah Tech Solution (6 Cols) */}
-          <div className="md:col-span-6 space-y-4 border-t md:border-t-0 md:border-l border-stone-850 pt-6 md:pt-0 md:pl-8">
+          <div className="md:col-span-6 space-y-4 border-t md:border-t-0 md:border-l border-stone-800 pt-6 md:pt-0 md:pl-8">
             <span className="text-[10px] uppercase tracking-[0.2em] font-semibold text-amber-500 block">
               Technology Partner & Digital Architect
             </span>
@@ -80,7 +79,7 @@ export default function Footer({ isClassicDark, scrollTo, onAdminClick, pageData
       </div>
 
       {/* Simplified Copyright line */}
-      <div className="bg-stone-990 py-6 border-t border-stone-900" id="footer-copyright-subline">
+      <div className="bg-stone-950 py-6 border-t border-stone-900" id="footer-copyright-subline">
         <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 flex flex-col sm:flex-row items-center justify-between text-[11px] text-stone-500 gap-4">
           <p className="font-sans">
             &copy; {new Date().getFullYear()} {pageData?.hotelName || 'Celestia Grand'}. All Rights Reserved.

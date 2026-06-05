@@ -86,13 +86,13 @@ export default function Contact({ isClassicDark, formData, setFormData, scrollTo
                       ? 'bg-amber-950/20 border-amber-500/30'
                       : 'bg-emerald-50/50 border-emerald-600/20'
                     : isClassicDark
-                      ? 'bg-stone-900/40 border-stone-850'
-                      : 'bg-white border-stone-250'
+                      ? 'bg-stone-900/40 border-stone-800'
+                      : 'bg-white border-stone-200'
                   }`}
               >
                 {/* Icon */}
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-4 ${isClassicDark
-                    ? 'bg-stone-900 text-amber-450 border border-amber-500/10'
+                    ? 'bg-stone-900 text-amber-400 border border-amber-500/10'
                     : 'bg-stone-100 text-emerald-700'
                   }`}>
                   <Icon className="w-5 h-5" />
@@ -115,7 +115,7 @@ export default function Contact({ isClassicDark, formData, setFormData, scrollTo
                   target={detail.linkUrl.startsWith('http') ? '_blank' : undefined}
                   rel={detail.linkUrl.startsWith('http') ? 'noreferrer' : undefined}
                   className={`text-xs uppercase tracking-wider font-semibold hover:underline transition-colors ${detail.isHighlight
-                      ? 'text-amber-550'
+                      ? 'text-amber-500'
                       : isClassicDark
                         ? 'text-amber-400'
                         : 'text-emerald-700'
