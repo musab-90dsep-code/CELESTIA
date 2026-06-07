@@ -65,12 +65,12 @@ export default function Footer({ isClassicDark, scrollTo, onAdminClick, pageData
             <div className="text-xs">
               <span className="text-stone-600">Explore Services: </span>
               <a
-                href="https://musabkhan.vercel.app"
+                href="https://saudibusiness.info"
                 target="_blank"
                 rel="noreferrer"
                 className="text-amber-400 hover:text-amber-350 hover:underline font-semibold"
               >
-                {(pageData?.techPartnerUrl || 'https://hasanahtech.com').replace(/^https?:\/\//, '')} &rarr;
+                {(pageData?.techPartnerUrl || 'https://saudibusiness.info').replace(/^https?:\/\//, '')} &rarr;
               </a>
             </div>
           </div>
@@ -95,7 +95,7 @@ export default function Footer({ isClassicDark, scrollTo, onAdminClick, pageData
           <p className="flex items-center gap-1.5 font-sans">
             Crafted with <Heart className="w-3 h-3 text-red-500 fill-red-500" /> by{' '}
             <a
-              href="https://musabkhan.vercel.app"
+              href="https://saudibusiness.info"
               target="_blank"
               rel="noreferrer"
               className="text-stone-400 hover:text-amber-400 hover:underline font-semibold"
