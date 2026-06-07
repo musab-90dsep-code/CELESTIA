@@ -54,26 +54,25 @@ export default function Management({ isClassicDark, databaseMembers }: Managemen
   ];
 
   // Resolve members from props, mapping static assets if using defaults
-  const members = databaseMembers && databaseMembers.length > 0 
+  const members = databaseMembers && databaseMembers.length > 0
     ? databaseMembers.map(m => {
-        let mappedImg = ceoImg;
-        if (m.id === '2') mappedImg = gmImg;
-        if (m.id === '3') mappedImg = opsImg;
-        return {
-          ...m,
-          image: m.imageUrl ? { src: m.imageUrl } : mappedImg
-        };
-      })
+      let mappedImg = ceoImg;
+      if (m.id === '2') mappedImg = gmImg;
+      if (m.id === '3') mappedImg = opsImg;
+      return {
+        ...m,
+        image: m.imageUrl ? { src: m.imageUrl } : mappedImg
+      };
+    })
     : defaultMembers;
 
   return (
     <section
       id="management"
-      className={`py-16 relative overflow-hidden border-t transition-colors duration-500 ${
-        isClassicDark 
-          ? 'bg-stone-950 text-stone-100 border-stone-900' 
+      className={`py-16 relative overflow-hidden border-t transition-colors duration-500 ${isClassicDark
+          ? 'bg-stone-950 text-stone-100 border-stone-900'
           : 'bg-stone-50 text-stone-900 border-stone-200'
-      }`}
+        }`}
     >
       {/* Background Mandala Pattern */}
       <div
@@ -86,7 +85,7 @@ export default function Management({ isClassicDark, databaseMembers }: Managemen
       />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
-        
+
         {/* Centered Heading */}
         <div className="text-center mb-12">
           <span className="text-xs uppercase tracking-[0.25em] font-sans font-semibold text-amber-500">
@@ -104,11 +103,10 @@ export default function Management({ isClassicDark, databaseMembers }: Managemen
             <div
               key={member.id}
               onClick={() => setSelectedMember(member)}
-              className={`group cursor-pointer rounded-2xl overflow-hidden border transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl ${
-                isClassicDark
+              className={`group cursor-pointer rounded-2xl overflow-hidden border transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl ${isClassicDark
                   ? 'bg-stone-900/60 border-stone-800 hover:border-amber-500/30'
                   : 'bg-white border-stone-200 hover:border-emerald-600/30'
-              }`}
+                }`}
             >
               {/* Member Photo */}
               <div className="relative aspect-[4/3] w-full overflow-hidden">
@@ -140,20 +138,22 @@ export default function Management({ isClassicDark, databaseMembers }: Managemen
 
       {/* Details Modal (Zoom Details without Image) */}
       {selectedMember && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/80 backdrop-blur-sm animate-fade-in">
+        <div
+          onClick={() => setSelectedMember(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/80 backdrop-blur-sm animate-fade-in"
+        >
           <div
-            className={`relative w-full max-w-lg rounded-2xl p-8 border shadow-2xl transition-all duration-300 transform scale-100 ${
-              isClassicDark
+            onClick={(e) => e.stopPropagation()}
+            className={`relative w-full max-w-lg rounded-2xl p-8 border shadow-2xl transition-all duration-300 transform scale-100 ${isClassicDark
                 ? 'bg-stone-900 border-stone-800 text-stone-100'
                 : 'bg-white border-stone-200 text-stone-900'
-            }`}
+              }`}
           >
             {/* Close Button */}
             <button
               onClick={() => setSelectedMember(null)}
-              className={`absolute top-4 right-4 p-2 rounded-full hover:bg-stone-500/10 transition-colors ${
-                isClassicDark ? 'text-stone-400 hover:text-stone-100' : 'text-stone-500'
-              }`}
+              className={`absolute top-4 right-4 p-2 rounded-full hover:bg-stone-500/10 transition-colors ${isClassicDark ? 'text-stone-400 hover:text-stone-100' : 'text-stone-500'
+                }`}
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

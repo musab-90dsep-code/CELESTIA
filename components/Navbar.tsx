@@ -41,14 +41,13 @@ export default function Navbar({
           </span>
           <div className="flex flex-col">
             <span className={`font-serif text-lg tracking-widest font-bold ${isClassicDark
-              ? 'text-transparent bg-clip-text bg-gradient-to-r from-stone-100 via-amber-400 to-amber-200'
+              ? 'text-white' 
               : 'text-stone-950'
-              }`}>
+            }`}>
               {pageData?.hotelName || 'CELESTIA GRAND'}
             </span>
             <span className={`text-[9px] uppercase tracking-[0.25em] font-sans font-medium ${isClassicDark ? 'text-amber-500' : 'text-amber-700'
               }`}>
-              Residential Hotel
             </span>
           </div>
         </div>
@@ -79,11 +78,10 @@ export default function Navbar({
 
         {/* Right Header Panel (CTA, Mobile Trigger) */}
         <div className="flex items-center space-x-4">
-
           {/* Book Now Button */}
           <button
             onClick={() => scrollTo('contact')}
-            className="inline-flex items-center px-4 py-2 border border-amber-500/40 text-xs tracking-wider uppercase bg-amber-500/10 text-amber-400 hover:bg-amber-500 hover:text-stone-950 transition-all duration-300 font-sans font-semibold rounded-xs cursor-pointer"
+            className="inline-flex items-center px-4 py-2 border border-amber-500/40 text-xs tracking-wider uppercase bg-amber-550/10 text-amber-400 hover:bg-amber-500 hover:text-stone-950 transition-all duration-300 font-sans font-semibold rounded-xs cursor-pointer"
             id="header-cta-booking"
           >
             Book Now

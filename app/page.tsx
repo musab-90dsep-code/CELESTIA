@@ -7,6 +7,7 @@ import Hero from '../components/Hero';
 import About from '../components/About';
 import Management from '../components/Management';
 import Team from '../components/Team';
+import WhyChooseUs from '../components/WhyChooseUs';
 import Services from '../components/Services';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
@@ -42,6 +43,7 @@ export default function Home() {
   const [managementMembers, setManagementMembers] = useState<any[]>([]);
   const [teamMembers, setTeamMembers] = useState<any[]>([]);
   const [servicesList, setServicesList] = useState<any[]>([]);
+  const [whyChooseUsData, setWhyChooseUsData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   // Fetch configs from Supabase
@@ -62,6 +64,7 @@ export default function Home() {
           const managementRow = data.find(r => r.section_key === 'management');
           const teamRow = data.find(r => r.section_key === 'team');
           const servicesRow = data.find(r => r.section_key === 'services');
+          const whyChooseUsRow = data.find(r => r.section_key === 'why_choose_us');
 
           if (generalRow) {
             setPageData(prev => ({ ...prev, ...generalRow.content }));
@@ -80,6 +83,9 @@ export default function Home() {
           }
           if (servicesRow && servicesRow.content?.services) {
             setServicesList(servicesRow.content.services);
+          }
+          if (whyChooseUsRow && whyChooseUsRow.content) {
+            setWhyChooseUsData(whyChooseUsRow.content);
           }
         }
       } catch (err) {
@@ -113,6 +119,8 @@ export default function Home() {
         setTeamMembers(content.members);
       } else if (key === 'services' && content.services) {
         setServicesList(content.services);
+      } else if (key === 'why_choose_us') {
+        setWhyChooseUsData(content);
       }
     } catch (err: any) {
       console.error(`Error saving ${key} to Supabase:`, err.message);
@@ -214,6 +222,8 @@ export default function Home() {
       <Management isClassicDark={isClassicDark} databaseMembers={managementMembers} />
 
       <Team isClassicDark={isClassicDark} databaseMembers={teamMembers} />
+
+      <WhyChooseUs isClassicDark={isClassicDark} whyChooseUsData={whyChooseUsData} />
 
       <Services isClassicDark={isClassicDark} databaseServices={servicesList} />
 

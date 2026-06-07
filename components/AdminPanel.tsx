@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { LayoutDashboard, Settings, LogOut, ShieldCheck, Mail, Phone, Calendar, MessageSquare, Image, Award, Heart, Shield, Menu, X } from 'lucide-react';
+import { LayoutDashboard, Settings, LogOut, ShieldCheck, Mail, Phone, Calendar, MessageSquare, Image, Award, Heart, Shield, Menu, X, HelpCircle } from 'lucide-react';
+import ImageCropperModal from './ImageCropperModal';
 
 interface AdminPanelProps {
   onClose: () => void;
@@ -21,6 +22,7 @@ interface AdminPanelProps {
   databaseManagementMembers: any[];
   databaseTeamMembers: any[];
   databaseServices: any[];
+  databaseWhyChooseUs?: any;
   onSaveSection: (key: string, content: any) => Promise<void>;
 }
 
@@ -32,6 +34,7 @@ export default function AdminPanel({
   databaseManagementMembers,
   databaseTeamMembers,
   databaseServices,
+  databaseWhyChooseUs,
   onSaveSection
 }: AdminPanelProps) {
   const stats = [
@@ -56,7 +59,7 @@ export default function AdminPanel({
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
-  const [activeTab, setActiveTab] = useState<'general' | 'hero' | 'management' | 'team' | 'services'>('general');
+  const [activeTab, setActiveTab] = useState<'general' | 'hero' | 'management' | 'team' | 'services' | 'why_choose_us'>('general');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // --- LOCAL INPUT STATES ---
@@ -118,14 +121,51 @@ export default function AdminPanel({
     databaseServices && databaseServices.length > 0 ? databaseServices : defaultServices
   );
 
+  // 6. Why Choose Us
+  const defaultWhyChooseUsFeatures = [
+    { id: '1', title: 'Historic Legacy', description: 'With decades of catering to royals, we offer an unmatched heritage of grandeur and classic service.', icon: 'Award' },
+    { id: '2', title: 'Absolute Security', description: 'Equipped with diplomatic-grade security systems and dedicated VIP protocols to keep you private.', icon: 'Shield' },
+    { id: '3', title: 'Premium Comfort', description: 'Bespoke hand-crafted furniture, fine Italian linens, and stunning panoramic views in all suites.', icon: 'Crown' },
+    { id: '4', title: 'Michelin Dining', description: 'Indulge in 24/7 gourmet menus prepared exclusively by our team of world-class Michelin chefs.', icon: 'Flame' }
+  ];
+
+  const [whyChooseUsTitle, setWhyChooseUsTitle] = useState(
+    databaseWhyChooseUs?.title || 'Why Choose Us'
+  );
+  const [whyChooseUsSubtitle, setWhyChooseUsSubtitle] = useState(
+    databaseWhyChooseUs?.subtitle || 'The Epitome of Royal Comfort & Legacy'
+  );
+  const [whyChooseUsFeatures, setWhyChooseUsFeatures] = useState<any[]>(
+    databaseWhyChooseUs?.features || defaultWhyChooseUsFeatures
+  );
+
+  // --- IMAGE CROPPER STATES ---
+  const [cropActive, setCropActive] = useState(false);
+  const [cropImageSrc, setCropImageSrc] = useState<string>('');
+  const [cropAspect, setCropAspect] = useState<'1:1' | '3:4' | '16:9' | '16:10'>('1:1');
+  const [cropOnComplete, setCropOnComplete] = useState<(croppedDataUrl: string) => void>(() => () => {});
+
+  const startCropFlow = (file: File, aspect: '1:1' | '3:4' | '16:9' | '16:10', onDone: (cropped: string) => void) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      if (typeof reader.result === 'string') {
+        setCropImageSrc(reader.result);
+        setCropAspect(aspect);
+        setCropOnComplete(() => onDone);
+        setCropActive(true);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
   // --- SAVE ACTIONS ---
 
   const saveGeneralAndAbout = async (e: React.FormEvent) => {
     e.preventDefault();
     await onSaveSection('general', {
       hotelName: formHotelName,
-      techPartnerName: pageData.techPartnerName || 'Hasanah Tech Solution',
-      techPartnerUrl: pageData.techPartnerUrl || 'https://hasanahtech.com',
+      techPartnerName: formTechPartnerName,
+      techPartnerUrl: formTechPartnerUrl,
       hotelPhone: formHotelPhone,
       hotelEmail: formHotelEmail,
       hotelAddress: formHotelAddress,
@@ -163,6 +203,16 @@ export default function AdminPanel({
     alert('Services configurations saved successfully to Supabase!');
   };
 
+  const saveWhyChooseUs = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await onSaveSection('why_choose_us', {
+      title: whyChooseUsTitle,
+      subtitle: whyChooseUsSubtitle,
+      features: whyChooseUsFeatures
+    });
+    alert('Why Choose Us configurations saved successfully to Supabase!');
+  };
+
   // Helper handling array input shifts
   const updateHeroUrl = (index: number, val: string) => {
     const updated = [...heroUrls];
@@ -171,63 +221,27 @@ export default function AdminPanel({
   };
 
   const handleImageUpload = (index: number, file: File) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      if (typeof reader.result === 'string') {
-        updateHeroUrl(index, reader.result);
-      }
-    };
-    reader.readAsDataURL(file);
+    startCropFlow(file, '16:9', (cropped) => updateHeroUrl(index, cropped));
   };
 
   const handleManagementImageUpload = (index: number, file: File) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      if (typeof reader.result === 'string') {
-        updateManagementField(index, 'imageUrl', reader.result);
-      }
-    };
-    reader.readAsDataURL(file);
+    startCropFlow(file, '3:4', (cropped) => updateManagementField(index, 'imageUrl', cropped));
   };
 
   const handleTeamImageUpload = (index: number, file: File) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      if (typeof reader.result === 'string') {
-        updateTeamField(index, 'imageUrl', reader.result);
-      }
-    };
-    reader.readAsDataURL(file);
+    startCropFlow(file, '3:4', (cropped) => updateTeamField(index, 'imageUrl', cropped));
   };
 
   const handleServicesImageUpload = (index: number, file: File) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      if (typeof reader.result === 'string') {
-        updateServicesField(index, 'imageUrl', reader.result);
-      }
-    };
-    reader.readAsDataURL(file);
+    startCropFlow(file, '16:10', (cropped) => updateServicesField(index, 'imageUrl', cropped));
   };
 
   const handleLogoUpload = (file: File) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      if (typeof reader.result === 'string') {
-        setFormLogoUrl(reader.result);
-      }
-    };
-    reader.readAsDataURL(file);
+    startCropFlow(file, '1:1', (cropped) => setFormLogoUrl(cropped));
   };
 
   const handleOwnerImageUpload = (file: File) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      if (typeof reader.result === 'string') {
-        setFormOwnerImageUrl(reader.result);
-      }
-    };
-    reader.readAsDataURL(file);
+    startCropFlow(file, '3:4', (cropped) => setFormOwnerImageUrl(cropped));
   };
 
   const updateManagementField = (index: number, field: string, val: string) => {
@@ -246,6 +260,12 @@ export default function AdminPanel({
     const updated = [...servicesList];
     updated[index] = { ...updated[index], [field]: val };
     setServicesList(updated);
+  };
+
+  const updateWhyChooseUsFeature = (index: number, field: string, val: string) => {
+    const updated = [...whyChooseUsFeatures];
+    updated[index] = { ...updated[index], [field]: val };
+    setWhyChooseUsFeatures(updated);
   };
 
   // Auth Submit handler
@@ -398,6 +418,15 @@ export default function AdminPanel({
             </button>
 
             <button
+              onClick={() => { setActiveTab('why_choose_us'); setIsSidebarOpen(false); }}
+              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${activeTab === 'why_choose_us' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-800 hover:text-white'
+                }`}
+            >
+              <HelpCircle className="w-4 h-4" />
+              <span>Why Choose Us</span>
+            </button>
+
+            <button
               onClick={() => { setActiveTab('services'); setIsSidebarOpen(false); }}
               className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${activeTab === 'services' ? 'bg-amber-500 text-stone-950 font-bold' : 'text-stone-400 hover:bg-stone-800 hover:text-white'
                 }`}
@@ -477,16 +506,35 @@ export default function AdminPanel({
                           }}
                         />
                       </label>
+                      {formOwnerImageUrl && (
+                        <button
+                          type="button"
+                          onClick={() => setFormOwnerImageUrl('')}
+                          className="px-4 py-2.5 bg-red-950/20 border border-red-500/20 text-red-400 hover:bg-red-500 hover:text-white text-xs font-semibold rounded transition cursor-pointer flex-shrink-0 animate-fade-in"
+                        >
+                          Delete
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs uppercase font-bold text-stone-500 mb-2">Tech Partner Name (Locked)</label>
-                  <input type="text" value={formTechPartnerName} disabled className="w-full py-2.5 px-4 bg-stone-900 border border-stone-800 rounded text-xs text-stone-500 cursor-not-allowed focus:outline-none" />
+                  <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Tech Partner Name</label>
+                  <input
+                    type="text"
+                    value={formTechPartnerName}
+                    onChange={(e) => setFormTechPartnerName(e.target.value)}
+                    className="w-full py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500"
+                  />
                 </div>
                 <div>
-                  <label className="block text-xs uppercase font-bold text-stone-500 mb-2">Tech Partner URL (Locked)</label>
-                  <input type="text" value={formTechPartnerUrl} disabled className="w-full py-2.5 px-4 bg-stone-900 border border-stone-800 rounded text-xs text-stone-500 cursor-not-allowed focus:outline-none" />
+                  <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Tech Partner URL</label>
+                  <input
+                    type="text"
+                    value={formTechPartnerUrl}
+                    onChange={(e) => setFormTechPartnerUrl(e.target.value)}
+                    className="w-full py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500"
+                  />
                 </div>
                 <div className="md:col-span-2">
                   <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Website Logo Image</label>
@@ -517,6 +565,15 @@ export default function AdminPanel({
                           }}
                         />
                       </label>
+                      {formLogoUrl && (
+                        <button
+                          type="button"
+                          onClick={() => setFormLogoUrl('')}
+                          className="px-4 py-2.5 bg-red-950/20 border border-red-500/20 text-red-400 hover:bg-red-500 hover:text-white text-xs font-semibold rounded transition cursor-pointer flex-shrink-0 animate-fade-in"
+                        >
+                          Delete
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -665,6 +722,15 @@ export default function AdminPanel({
                             }}
                           />
                         </label>
+                        {member.imageUrl && (
+                          <button
+                            type="button"
+                            onClick={() => updateManagementField(index, 'imageUrl', '')}
+                            className="px-3 py-2 bg-red-950/20 border border-red-500/20 text-red-400 hover:bg-red-500 hover:text-white text-xs font-semibold rounded transition cursor-pointer flex-shrink-0 animate-fade-in font-medium"
+                          >
+                            Delete Image
+                          </button>
+                        )}
                       </div>
                     </div>
                     <div>
@@ -752,6 +818,15 @@ export default function AdminPanel({
                             }}
                           />
                         </label>
+                        {member.imageUrl && (
+                          <button
+                            type="button"
+                            onClick={() => updateTeamField(index, 'imageUrl', '')}
+                            className="px-3 py-2 bg-red-950/20 border border-red-500/20 text-red-400 hover:bg-red-500 hover:text-white text-xs font-semibold rounded transition cursor-pointer flex-shrink-0 animate-fade-in font-medium"
+                          >
+                            Delete Image
+                          </button>
+                        )}
                       </div>
                     </div>
                     <div>
@@ -829,6 +904,15 @@ export default function AdminPanel({
                             }}
                           />
                         </label>
+                        {service.imageUrl && (
+                          <button
+                            type="button"
+                            onClick={() => updateServicesField(index, 'imageUrl', '')}
+                            className="px-3 py-2 bg-red-950/20 border border-red-500/20 text-red-400 hover:bg-red-500 hover:text-white text-xs font-semibold rounded transition cursor-pointer flex-shrink-0 animate-fade-in font-medium"
+                          >
+                            Delete Image
+                          </button>
+                        )}
                       </div>
                     </div>
                     <div className="md:col-span-2">
@@ -843,8 +927,126 @@ export default function AdminPanel({
               </div>
             </form>
           )}
+
+          {/* Why Choose Us Sub-tab Form */}
+          {activeTab === 'why_choose_us' && (
+            <form onSubmit={saveWhyChooseUs} className="p-4 sm:p-8 bg-stone-900 border border-stone-800 rounded-2xl max-w-3xl space-y-8">
+              <div className="flex justify-between items-center border-b border-stone-800 pb-3">
+                <h3 className="font-serif text-lg font-bold text-white">Why Choose Us Settings</h3>
+                <button
+                  type="button"
+                  onClick={() => setWhyChooseUsFeatures([...whyChooseUsFeatures, { id: String(Date.now()), title: 'New Highlight', description: '', icon: 'Award' }])}
+                  className="px-3 py-1.5 bg-stone-800 hover:bg-stone-700 text-amber-500 hover:text-amber-450 text-xs font-semibold rounded uppercase tracking-wider transition cursor-pointer"
+                >
+                  + Add Feature
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-4 border-b border-stone-800">
+                <div>
+                  <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Section Title</label>
+                  <input
+                    type="text"
+                    value={whyChooseUsTitle}
+                    onChange={(e) => setWhyChooseUsTitle(e.target.value)}
+                    className="w-full py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Section Subtitle</label>
+                  <input
+                    type="text"
+                    value={whyChooseUsSubtitle}
+                    onChange={(e) => setWhyChooseUsSubtitle(e.target.value)}
+                    className="w-full py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500"
+                  />
+                </div>
+              </div>
+
+              {whyChooseUsFeatures.map((feature, index) => (
+                <div key={feature.id} className="border-b border-stone-800 pb-6 space-y-4 last:border-b-0 last:pb-0">
+                  <div className="flex justify-between items-center">
+                    <span className="text-[10px] uppercase tracking-wider text-amber-500 font-bold bg-amber-500/10 px-2 py-1 rounded">Feature Card {index + 1}</span>
+                    {whyChooseUsFeatures.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const updated = whyChooseUsFeatures.filter((_, idx) => idx !== index);
+                          setWhyChooseUsFeatures(updated);
+                        }}
+                        className="px-2.5 py-1 text-[9px] bg-red-950/20 border border-red-500/20 text-red-400 hover:bg-red-500 hover:text-white rounded uppercase tracking-widest transition cursor-pointer font-bold"
+                      >
+                        Remove Feature
+                      </button>
+                    )}
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-[10px] uppercase text-stone-500 mb-1">Feature Title</label>
+                      <input
+                        type="text"
+                        value={feature.title}
+                        onChange={(e) => updateWhyChooseUsFeature(index, 'title', e.target.value)}
+                        className="w-full py-2 px-3 bg-stone-950 border border-stone-800 rounded text-xs text-white"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] uppercase text-stone-500 mb-1">Select Icon</label>
+                      <select
+                        value={feature.icon}
+                        onChange={(e) => updateWhyChooseUsFeature(index, 'icon', e.target.value)}
+                        className="w-full py-2 px-3 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500"
+                      >
+                        <option value="Award">Award (Star badge)</option>
+                        <option value="Shield">Shield (Security badge)</option>
+                        <option value="Crown">Crown (Royalty/Premium)</option>
+                        <option value="Flame">Flame (Michelin dining/heat)</option>
+                        <option value="Heart">Heart (Hospitality/care)</option>
+                        <option value="Star">Star (Rating/delight)</option>
+                        <option value="Sparkles">Sparkles (Luxury/clean)</option>
+                        <option value="Gem">Gem (Exclusive/rare)</option>
+                        <option value="Clock">Clock (24/7 Service)</option>
+                        <option value="Compass">Compass (Location/navigation)</option>
+                        <option value="ShieldCheck">Shield Check (Certified security)</option>
+                        <option value="Coffee">Coffee (Amenities/morning)</option>
+                        <option value="Wifi">Wifi (Internet connectivity)</option>
+                        <option value="MapPin">Map Pin (Prime location)</option>
+                        <option value="Utensils">Utensils (Dining/cooking)</option>
+                        <option value="HeartHandshake">Heart Handshake (Friendly service)</option>
+                        <option value="HelpCircle">Help/Question (Default)</option>
+                      </select>
+                    </div>
+                    <div className="md:col-span-2">
+                      <label className="block text-[10px] uppercase text-stone-500 mb-1">Description</label>
+                      <textarea
+                        rows={2}
+                        value={feature.description}
+                        onChange={(e) => updateWhyChooseUsFeature(index, 'description', e.target.value)}
+                        className="w-full py-2 px-3 bg-stone-950 border border-stone-800 rounded text-xs text-white"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <div className="flex justify-end pt-4">
+                <button type="submit" className="px-6 py-2.5 bg-amber-500 text-stone-950 font-bold uppercase tracking-widest text-[10px] rounded hover:bg-amber-400 transition cursor-pointer">Save Why Choose Us</button>
+              </div>
+            </form>
+          )}
         </div>
       </main>
+
+      {cropActive && (
+        <ImageCropperModal
+          imageSrc={cropImageSrc}
+          aspect={cropAspect}
+          onCancel={() => setCropActive(false)}
+          onCrop={(croppedDataUrl) => {
+            cropOnComplete(croppedDataUrl);
+            setCropActive(false);
+          }}
+        />
+      )}
     </div>
   );
 }

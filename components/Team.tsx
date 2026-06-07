@@ -1,5 +1,4 @@
-'use client';
-
+import { useState, useEffect } from 'react';
 import chefImg from '../assets/chef.png';
 import conciergeImg from '../assets/concierge.png';
 import relationsImg from '../assets/relations.png';
@@ -20,6 +19,9 @@ interface TeamProps {
 }
 
 export default function Team({ isClassicDark, databaseMembers }: TeamProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(1);
+
   const defaultTeamMembers: TeamMember[] = [
     {
       id: '1',
@@ -69,8 +71,38 @@ export default function Team({ isClassicDark, databaseMembers }: TeamProps) {
       })
     : defaultTeamMembers;
 
-  // Duplicate team list for infinite marquee scrolling
-  const doubledMembers = [...teamMembers, ...teamMembers];
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setVisibleCount(3);
+      } else if (window.innerWidth >= 640) {
+        setVisibleCount(2);
+      } else {
+        setVisibleCount(1);
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const maxIndex = Math.max(0, teamMembers.length - visibleCount);
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
+  };
+
+  useEffect(() => {
+    if (maxIndex === 0) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [maxIndex, currentIndex]);
 
   return (
     <section
@@ -103,57 +135,103 @@ export default function Team({ isClassicDark, databaseMembers }: TeamProps) {
           </h2>
           <div className="w-12 h-[1px] bg-amber-500/50 mx-auto mt-3" />
         </div>
-      </div>
 
-      {/* Infinite Team Marquee Row */}
-      <div className="w-full overflow-hidden relative py-4">
-        {/* Shadow Overlay Left & Right */}
-        <div className={`absolute top-0 bottom-0 left-0 w-24 z-10 pointer-events-none ${isClassicDark ? 'bg-gradient-to-r from-stone-950 to-transparent' : 'bg-gradient-to-r from-stone-50 to-transparent'}`} />
-        <div className={`absolute top-0 bottom-0 right-0 w-24 z-10 pointer-events-none ${isClassicDark ? 'bg-gradient-to-l from-stone-950 to-transparent' : 'bg-gradient-to-l from-stone-50 to-transparent'}`} />
+        {/* Team Slider Row */}
+        <div className="w-full overflow-hidden relative py-4">
+          <div 
+            className="flex gap-6 transition-transform duration-500 ease-in-out"
+            style={{ transform: `translateX(calc(-${currentIndex} * (100% + 24px) / ${visibleCount}))` }}
+          >
+            {teamMembers.map((member) => (
+              <div
+                key={member.id}
+                className={`flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] group relative rounded-2xl overflow-hidden border transition-all duration-550 flex flex-col ${
+                  isClassicDark
+                    ? 'bg-stone-900/40 border-stone-800 hover:border-amber-500/20'
+                    : 'bg-white border-stone-200 hover:border-emerald-600/20'
+                }`}
+              >
+                {/* Image & Hover Quote Overlay */}
+                <div className="relative aspect-[3/4] w-full overflow-hidden">
+                  <img
+                    src={member.image.src}
+                    alt={member.name}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  
+                  {/* Dark gradient backdrop */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/20 to-transparent transition-opacity duration-300 group-hover:opacity-90" />
 
-        <div className="animate-marquee-reverse flex gap-8">
-          {doubledMembers.map((member, index) => (
-            <div
-              key={`${member.id}-${index}`}
-              className={`flex-shrink-0 w-[240px] sm:w-[280px] md:w-[300px] group relative rounded-2xl overflow-hidden border transition-all duration-550 flex flex-col ${
-                isClassicDark
-                  ? 'bg-stone-900/40 border-stone-800 hover:border-amber-500/20'
-                  : 'bg-white border-stone-200 hover:border-emerald-600/20'
-              }`}
-            >
-              {/* Image & Hover Quote Overlay */}
-              <div className="relative aspect-[3/4] w-full overflow-hidden">
-                <img
-                  src={member.image.src}
-                  alt={member.name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                
-                {/* Dark gradient backdrop */}
-                <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/20 to-transparent transition-opacity duration-300 group-hover:opacity-90" />
+                  {/* Quote details overlay visible on hover */}
+                  <div className="absolute inset-0 flex flex-col justify-end p-6 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                    <p className="text-xs italic text-stone-200 line-clamp-6 leading-relaxed mb-4">
+                      {member.quote}
+                    </p>
+                    <p className="text-[10px] uppercase tracking-wider text-amber-400 font-semibold">
+                      {member.experience}
+                    </p>
+                  </div>
+                </div>
 
-                {/* Quote details overlay visible on hover */}
-                <div className="absolute inset-0 flex flex-col justify-end p-6 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                  <p className="text-xs italic text-stone-200 line-clamp-6 leading-relaxed mb-4">
-                    {member.quote}
-                  </p>
-                  <p className="text-[10px] uppercase tracking-wider text-amber-400 font-semibold">
-                    {member.experience}
+                {/* Title / Info bar always visible */}
+                <div className="p-5 text-center z-10 border-t border-stone-500/10">
+                  <h3 className="font-serif text-lg font-bold tracking-wide">
+                    {member.name}
+                  </h3>
+                  <p className="text-xs text-amber-500 uppercase tracking-widest font-sans font-semibold mt-1">
+                    {member.role}
                   </p>
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
 
-              {/* Title / Info bar always visible */}
-              <div className="p-5 text-center z-10 border-t border-stone-500/10">
-                <h3 className="font-serif text-lg font-bold tracking-wide">
-                  {member.name}
-                </h3>
-                <p className="text-xs text-amber-500 uppercase tracking-widest font-sans font-semibold mt-1">
-                  {member.role}
-                </p>
-              </div>
-            </div>
-          ))}
+        {/* Controls & Navigation Dots */}
+        <div className="flex flex-col items-center gap-4 mt-8">
+          <div className="flex gap-4">
+            <button
+              onClick={prevSlide}
+              className={`p-3 rounded-full border transition-all duration-300 ${
+                isClassicDark
+                  ? 'border-stone-800 bg-stone-900/60 hover:bg-stone-800 text-stone-300 hover:text-amber-500'
+                  : 'border-stone-200 bg-white hover:bg-stone-50 text-stone-600 hover:text-emerald-600'
+              }`}
+              aria-label="Previous slide"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={nextSlide}
+              className={`p-3 rounded-full border transition-all duration-300 ${
+                isClassicDark
+                  ? 'border-stone-800 bg-stone-900/60 hover:bg-stone-800 text-stone-300 hover:text-amber-500'
+                  : 'border-stone-200 bg-white hover:bg-stone-50 text-stone-600 hover:text-emerald-600'
+              }`}
+              aria-label="Next slide"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+
+          <div className="flex gap-2">
+            {Array.from({ length: maxIndex + 1 }).map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  currentIndex === index
+                    ? 'w-6 bg-amber-500'
+                    : `w-1.5 ${isClassicDark ? 'bg-stone-800' : 'bg-stone-300'}`
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

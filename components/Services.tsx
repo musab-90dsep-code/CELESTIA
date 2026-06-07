@@ -1,5 +1,4 @@
-'use client';
-
+import { useState, useEffect } from 'react';
 import diningImg from '../assets/service_dining.png';
 import spaImg from '../assets/service_spa.png';
 import poolImg from '../assets/service_pool.png';
@@ -20,6 +19,9 @@ interface ServicesProps {
 }
 
 export default function Services({ isClassicDark, databaseServices }: ServicesProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(1);
+
   const defaultServices: ServiceItem[] = [
     {
       id: '1',
@@ -75,8 +77,38 @@ export default function Services({ isClassicDark, databaseServices }: ServicesPr
       })
     : defaultServices;
 
-  // Duplicate list to achieve infinite scrolling
-  const doubledServices = [...services, ...services];
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setVisibleCount(3);
+      } else if (window.innerWidth >= 640) {
+        setVisibleCount(2);
+      } else {
+        setVisibleCount(1);
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const maxIndex = Math.max(0, services.length - visibleCount);
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
+  };
+
+  useEffect(() => {
+    if (maxIndex === 0) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [maxIndex, currentIndex]);
 
   return (
     <section
@@ -109,51 +141,98 @@ export default function Services({ isClassicDark, databaseServices }: ServicesPr
           </h2>
           <div className="w-12 h-[1px] bg-amber-500/50 mx-auto mt-3" />
         </div>
-      </div>
 
-      {/* Services Horizontal Scroll Row (Infinite Marquee) */}
-      <div className="w-full overflow-hidden relative py-4">
-        {/* Shadow Overlay Left & Right */}
-        <div className={`absolute top-0 bottom-0 left-0 w-24 z-10 pointer-events-none ${isClassicDark ? 'bg-gradient-to-r from-stone-950 to-transparent' : 'bg-gradient-to-r from-stone-50 to-transparent'}`} />
-        <div className={`absolute top-0 bottom-0 right-0 w-24 z-10 pointer-events-none ${isClassicDark ? 'bg-gradient-to-l from-stone-950 to-transparent' : 'bg-gradient-to-l from-stone-50 to-transparent'}`} />
-        
-        <div className="animate-marquee flex gap-8">
-          {doubledServices.map((service, index) => {
-            return (
-              <div
-                key={`${service.id}-${index}`}
-                className={`flex-shrink-0 w-[290px] sm:w-[360px] md:w-[380px] overflow-hidden rounded-2xl border transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl group flex flex-col ${
-                  isClassicDark
-                    ? 'bg-stone-900/60 border-stone-800 hover:border-amber-500/30'
-                    : 'bg-white border-stone-200 hover:border-emerald-600/30'
-                }`}
-              >
-                {/* Service Image */}
-                <div className="relative aspect-[16/10] w-full overflow-hidden">
-                  <img
-                    src={service.image.src}
-                    alt={service.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-stone-950/60 via-transparent to-transparent opacity-50" />
-                </div>
+        {/* Services Horizontal Slider Row */}
+        <div className="w-full overflow-hidden relative py-4">
+          <div 
+            className="flex gap-6 transition-transform duration-500 ease-in-out"
+            style={{ transform: `translateX(calc(-${currentIndex} * (100% + 24px) / ${visibleCount}))` }}
+          >
+            {services.map((service) => {
+              return (
+                <div
+                  key={service.id}
+                  className={`flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] overflow-hidden rounded-2xl border transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl group flex flex-col ${
+                    isClassicDark
+                      ? 'bg-stone-900/60 border-stone-800 hover:border-amber-500/30'
+                      : 'bg-white border-stone-200 hover:border-emerald-600/30'
+                  }`}
+                >
+                  {/* Service Image */}
+                  <div className="relative aspect-[16/10] w-full overflow-hidden">
+                    <img
+                      src={service.image.src}
+                      alt={service.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-stone-950/60 via-transparent to-transparent opacity-50" />
+                  </div>
 
-                {/* Service Details */}
-                <div className="p-6 flex flex-col flex-grow">
-                  <h3 className="font-serif text-xl font-bold tracking-wide mb-3">
-                    {service.title}
-                  </h3>
-                  
-                  <p className={`text-sm sm:text-base leading-relaxed opacity-75 font-sans font-normal ${
-                    isClassicDark ? 'text-stone-300' : 'text-stone-600'
-                  }`}>
-                    {service.description}
-                  </p>
+                  {/* Service Details */}
+                  <div className="p-6 flex flex-col flex-grow">
+                    <h3 className="font-serif text-xl font-bold tracking-wide mb-3">
+                      {service.title}
+                    </h3>
+                    
+                    <p className={`text-sm sm:text-base leading-relaxed opacity-75 font-sans font-normal ${
+                      isClassicDark ? 'text-stone-300' : 'text-stone-600'
+                    }`}>
+                      {service.description}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
+
+        {/* Controls & Navigation Dots */}
+        <div className="flex flex-col items-center gap-4 mt-8">
+          <div className="flex gap-4">
+            <button
+              onClick={prevSlide}
+              className={`p-3 rounded-full border transition-all duration-300 ${
+                isClassicDark
+                  ? 'border-stone-800 bg-stone-900/60 hover:bg-stone-800 text-stone-300 hover:text-amber-500'
+                  : 'border-stone-200 bg-white hover:bg-stone-50 text-stone-600 hover:text-emerald-600'
+              }`}
+              aria-label="Previous slide"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={nextSlide}
+              className={`p-3 rounded-full border transition-all duration-300 ${
+                isClassicDark
+                  ? 'border-stone-800 bg-stone-900/60 hover:bg-stone-800 text-stone-300 hover:text-amber-500'
+                  : 'border-stone-200 bg-white hover:bg-stone-50 text-stone-600 hover:text-emerald-600'
+              }`}
+              aria-label="Next slide"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+
+          <div className="flex gap-2">
+            {Array.from({ length: maxIndex + 1 }).map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  currentIndex === index
+                    ? 'w-6 bg-amber-500'
+                    : `w-1.5 ${isClassicDark ? 'bg-stone-800' : 'bg-stone-300'}`
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   );

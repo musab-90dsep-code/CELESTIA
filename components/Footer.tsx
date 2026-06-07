@@ -17,7 +17,7 @@ export default function Footer({ isClassicDark, scrollTo, onAdminClick, pageData
 
           {/* Column 1: Brand & Navigation (7 Cols) */}
           <div className="md:col-span-6 space-y-6">
-             <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2">
               <span className={`border border-amber-500/30 bg-stone-900 rounded-xs flex items-center justify-center transition-colors overflow-hidden w-9 h-9 ${pageData?.logoUrl ? 'p-0' : 'p-2'}`}>
                 {pageData?.logoUrl ? (
                   <img src={pageData.logoUrl} alt="Logo" className="w-full h-full object-cover" />
@@ -40,8 +40,8 @@ export default function Footer({ isClassicDark, scrollTo, onAdminClick, pageData
               <button onClick={() => scrollTo('services')} className="hover:text-amber-400 transition-colors cursor-pointer text-stone-400">Services</button>
               <button onClick={() => scrollTo('contact')} className="hover:text-amber-400 transition-colors cursor-pointer text-stone-400">Contact</button>
               {onAdminClick && (
-                <button 
-                  onClick={onAdminClick} 
+                <button
+                  onClick={onAdminClick}
                   className="hover:text-amber-400 transition-colors cursor-pointer text-stone-400 font-semibold border-l border-stone-800 pl-4"
                   id="footer-admin-link"
                 >
@@ -84,8 +84,8 @@ export default function Footer({ isClassicDark, scrollTo, onAdminClick, pageData
           <p className="font-sans">
             &copy; {new Date().getFullYear()} {pageData?.hotelName || 'Celestia Grand'}. All Rights Reserved.
             {onAdminClick && (
-              <button 
-                onClick={onAdminClick} 
+              <button
+                onClick={onAdminClick}
                 className="ml-2 text-stone-600 hover:text-amber-500 hover:underline transition-colors cursor-pointer font-medium"
               >
                 Admin
@@ -100,7 +100,7 @@ export default function Footer({ isClassicDark, scrollTo, onAdminClick, pageData
               rel="noreferrer"
               className="text-stone-400 hover:text-amber-400 hover:underline font-semibold"
             >
-              Hasanah Tech Solution
+               SAUDI BUSINESS  CONSULTANCY
             </a>
           </p>
         </div>
