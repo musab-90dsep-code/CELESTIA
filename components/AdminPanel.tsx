@@ -45,7 +45,7 @@ export default function AdminPanel({
   ];
 
   const mockBookings = [
-    { id: '1', guest: 'Princess Sofia Romanov', room: 'Celestia Presidential Residence', checkIn: '2026-06-10', checkOut: '2026-09-10', status: 'Confirmed & Paid' },
+    { id: '1', guest: 'Princess Sofia Romanov', room: 'SAMAWET AL KHALEJ Presidential Residence', checkIn: '2026-06-10', checkOut: '2026-09-10', status: 'Confirmed & Paid' },
     { id: '2', guest: 'Alexander Sterling', room: 'Deluxe Serenity Suite', checkIn: '2026-06-12', checkOut: '2026-06-20', status: 'Confirmed' },
     { id: '3', guest: 'David Miller', room: 'Signature Manor Suite', checkIn: '2026-06-15', checkOut: '2026-06-22', status: 'Pending Review' }
   ];
@@ -89,9 +89,9 @@ export default function AdminPanel({
 
   // 3. Management (3 items)
   const defaultManagement = [
-    { id: '1', name: 'Rahat Rahman', designation: 'Chief Executive Officer (CEO)', email: 'rahat.rahman@celestiagrand.com', phone: '+880 1711-223344', bio: 'Rahat Rahman brings over 18 years of international experience...', imageUrl: '' },
-    { id: '2', name: 'Nusrat Jahan', designation: 'General Manager (GM)', email: 'nusrat.jahan@celestiagrand.com', phone: '+880 1711-556677', bio: 'Nusrat Jahan oversees day-to-day hotel operations...', imageUrl: '' },
-    { id: '3', name: 'Tanvir Ahmed', designation: 'Director of Operations', email: 'tanvir.ahmed@celestiagrand.com', phone: '+880 1711-889900', bio: 'Tanvir Ahmed coordinates across all service departments...', imageUrl: '' }
+    { id: '1', name: 'Rahat Rahman', designation: 'Chief Executive Officer (CEO)', email: 'rahat.rahman@samawetalkhalej.com', phone: '+880 1711-223344', bio: 'Rahat Rahman brings over 18 years of international experience...', imageUrl: '' },
+    { id: '2', name: 'Nusrat Jahan', designation: 'General Manager (GM)', email: 'nusrat.jahan@samawetalkhalej.com', phone: '+880 1711-556677', bio: 'Nusrat Jahan oversees day-to-day hotel operations...', imageUrl: '' },
+    { id: '3', name: 'Tanvir Ahmed', designation: 'Director of Operations', email: 'tanvir.ahmed@samawetalkhalej.com', phone: '+880 1711-889900', bio: 'Tanvir Ahmed coordinates across all service departments...', imageUrl: '' }
   ];
   const [managementList, setManagementList] = useState<any[]>(
     databaseManagementMembers && databaseManagementMembers.length > 0 ? databaseManagementMembers : defaultManagement

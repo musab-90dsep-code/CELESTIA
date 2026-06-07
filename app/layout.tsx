@@ -1,4 +1,4 @@
-import type {Metadata} from 'next';
+import type { Metadata } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css'; // Global styles
 
@@ -13,11 +13,11 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: 'Celestia Grand | Luxury Residential & Wellness Hotel',
-  description: 'Experience premium luxury living, five-star rooms, and legendary hospitality at Celestia Grand.',
+  title: 'SAMAWET AL KHALEJ',
+  description: 'Experience premium luxury living, five-star rooms, and legendary hospitality at SAMAWET AL KHALEJ.',
 };
 
-export default function RootLayout({children}: {children: React.ReactNode}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <body className="font-sans antialiased bg-stone-950 text-stone-100 selection:bg-amber-600 selection:text-white" suppressHydrationWarning>

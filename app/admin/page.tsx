@@ -8,14 +8,15 @@ import { supabase } from '../../lib/supabaseClient';
 export default function AdminPage() {
   const router = useRouter();
   const [pageData, setPageData] = useState({
-    hotelName: 'CELESTIA GRAND',
-    ownerName: 'Al-Haj Muhammad Yunus',
+    hotelName: 'SAMAWET AL KHALEJ',
+    ownerName: 'Md Delowar Hossain',
     ownerMessage: 'Islami Bank Bangladesh PLC (IBBPLC) is the largest commercial bank of Bangladesh. It is the first Shariah-based scheduled commercial bank in the South and South-East Asia region established in March 1983. With 400 branches, 271 sub-branches & 2,793 Agent Banking Outlets, the Bank possesses the largest branch network among the private sector banks in Bangladesh.',
-    techPartnerName: 'Hasanah Tech Solution',
-    techPartnerUrl: 'https://hasanahtech.com',
-    hotelPhone: '+880 1790 334 564',
-    hotelEmail: 'concierge@celestiagrand.com',
-    hotelAddress: '74 Oceanic Golden Boulevard, Sector 5, Dhaka 1212, Bangladesh'
+    ownerImageUrl: '',
+    techPartnerName: ' SAUDI BUSINESS  CONSULTANCY',
+    techPartnerUrl: 'https://saudibusiness.info',
+    hotelPhone: '+966550014267',
+    hotelEmail: 'DELOWAR019149@GMAIL.COM',
+    hotelAddress: 'MAKKAH AL MAKARAMA SAUDI ARABIA'
   });
 
   const [heroImages, setHeroImages] = useState<string[]>([]);

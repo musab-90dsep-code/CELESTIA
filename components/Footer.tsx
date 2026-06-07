@@ -1,6 +1,7 @@
 'use client';
 
 import { Crown, Heart } from 'lucide-react';
+import logoImg from '../assets/logo.jpg';
 
 interface FooterProps {
   isClassicDark: boolean;
@@ -18,15 +19,11 @@ export default function Footer({ isClassicDark, scrollTo, onAdminClick, pageData
           {/* Column 1: Brand & Navigation (7 Cols) */}
           <div className="md:col-span-6 space-y-6">
             <div className="flex items-center space-x-2">
-              <span className={`border border-amber-500/30 bg-stone-900 rounded-xs flex items-center justify-center transition-colors overflow-hidden w-9 h-9 ${pageData?.logoUrl ? 'p-0' : 'p-2'}`}>
-                {pageData?.logoUrl ? (
-                  <img src={pageData.logoUrl} alt="Logo" className="w-full h-full object-cover" />
-                ) : (
-                  <Crown className="w-5 h-5 text-amber-400" />
-                )}
+              <span className="border border-amber-500/30 bg-stone-900 rounded-xs flex items-center justify-center transition-colors overflow-hidden w-9 h-9 p-0">
+                <img src={pageData?.logoUrl || logoImg.src} alt="Logo" className="w-full h-full object-cover" />
               </span>
               <span className="font-serif font-bold text-lg tracking-widest text-white">
-                {pageData?.hotelName || 'CELESTIA GRAND'}
+                {pageData?.hotelName || 'SAMAWET AL KHALEJ'}
               </span>
             </div>
             <p className="text-xs text-stone-500 leading-relaxed max-w-md">
@@ -82,7 +79,7 @@ export default function Footer({ isClassicDark, scrollTo, onAdminClick, pageData
       <div className="bg-stone-950 py-6 border-t border-stone-900" id="footer-copyright-subline">
         <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 flex flex-col sm:flex-row items-center justify-between text-[11px] text-stone-500 gap-4">
           <p className="font-sans">
-            &copy; {new Date().getFullYear()} {pageData?.hotelName || 'Celestia Grand'}. All Rights Reserved.
+            &copy; {new Date().getFullYear()} {pageData?.hotelName || 'SAMAWET AL KHALEJ'}. All Rights Reserved.
             {onAdminClick && (
               <button
                 onClick={onAdminClick}

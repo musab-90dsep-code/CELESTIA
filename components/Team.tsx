@@ -27,7 +27,7 @@ export default function Team({ isClassicDark, databaseMembers }: TeamProps) {
       id: '1',
       name: 'Chef Marco Rossi',
       role: 'Executive Chef',
-      quote: '“Gastronomy is an art form. Every dish we serve at Celestia Grand is designed to tell a unique story of flavor, tradition, and innovation.”',
+      quote: '“Gastronomy is an art form. Every dish we serve at SAMAWET AL KHALEJ is designed to tell a unique story of flavor, tradition, and innovation.”',
       experience: '12+ Years in Michelin-starred Kitchens',
       image: chefImg,
     },
