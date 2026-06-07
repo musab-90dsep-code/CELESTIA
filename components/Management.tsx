@@ -70,8 +70,8 @@ export default function Management({ isClassicDark, databaseMembers }: Managemen
     <section
       id="management"
       className={`py-16 relative overflow-hidden border-t transition-colors duration-500 ${isClassicDark
-          ? 'bg-stone-950 text-stone-100 border-stone-900'
-          : 'bg-stone-50 text-stone-900 border-stone-200'
+        ? 'bg-stone-950 text-stone-100 border-stone-900'
+        : 'bg-stone-50 text-stone-900 border-stone-200'
         }`}
     >
       {/* Background Mandala Pattern */}
@@ -104,8 +104,8 @@ export default function Management({ isClassicDark, databaseMembers }: Managemen
               key={member.id}
               onClick={() => setSelectedMember(member)}
               className={`group cursor-pointer rounded-2xl overflow-hidden border transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl ${isClassicDark
-                  ? 'bg-stone-900/60 border-stone-800 hover:border-amber-500/30'
-                  : 'bg-white border-stone-200 hover:border-emerald-600/30'
+                ? 'bg-stone-900/60 border-stone-800 hover:border-amber-500/30'
+                : 'bg-white border-stone-200 hover:border-emerald-600/30'
                 }`}
             >
               {/* Member Photo */}
@@ -145,8 +145,8 @@ export default function Management({ isClassicDark, databaseMembers }: Managemen
           <div
             onClick={(e) => e.stopPropagation()}
             className={`relative w-full max-w-lg rounded-2xl p-8 border shadow-2xl transition-all duration-300 transform scale-100 ${isClassicDark
-                ? 'bg-stone-900 border-stone-800 text-stone-100'
-                : 'bg-white border-stone-200 text-stone-900'
+              ? 'bg-stone-900 border-stone-800 text-stone-100'
+              : 'bg-white border-stone-200 text-stone-900'
               }`}
           >
             {/* Close Button */}

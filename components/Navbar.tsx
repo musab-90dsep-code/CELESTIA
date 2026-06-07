@@ -39,15 +39,12 @@ export default function Navbar({
               <Crown className="w-5 h-5 text-amber-400" />
             )}
           </span>
-          <div className="flex flex-col">
-            <span className={`font-serif text-lg tracking-widest font-bold ${isClassicDark
+          <div className="flex flex-col max-w-[140px] sm:max-w-none">
+            <span className={`font-serif text-sm sm:text-base md:text-lg tracking-wider sm:tracking-widest font-bold leading-[1.15] ${isClassicDark
               ? 'text-white' 
               : 'text-stone-950'
             }`}>
               {pageData?.hotelName || 'CELESTIA GRAND'}
-            </span>
-            <span className={`text-[9px] uppercase tracking-[0.25em] font-sans font-medium ${isClassicDark ? 'text-amber-500' : 'text-amber-700'
-              }`}>
             </span>
           </div>
         </div>

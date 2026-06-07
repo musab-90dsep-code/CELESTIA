@@ -20,6 +20,7 @@
 /* Base style resets and customizations */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* Prevents sticky navbar from overlapping sections */
 }
 
 /* Glassmorphism utilities */

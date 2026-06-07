@@ -174,10 +174,13 @@ export default function Home() {
   // Scroll handler
   const scrollTo = (id: string) => {
     setMobileMenuOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    const delay = typeof window !== 'undefined' && window.innerWidth < 1024 ? 300 : 0;
+    setTimeout(() => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, delay);
   };
 
   if (isLoading) {
