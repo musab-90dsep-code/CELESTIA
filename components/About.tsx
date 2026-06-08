@@ -1,7 +1,7 @@
 'use client';
 
 import ownerImg from '../assets/owner.png';
-import { Quote } from 'lucide-react';
+import { Quote, Phone, Mail } from 'lucide-react';
 
 interface AboutProps {
   isClassicDark: boolean;
@@ -80,6 +80,22 @@ export default function About({ isClassicDark, scrollTo, pageData }: AboutProps)
                     </p>
                     <span className="h-[1px] w-4 bg-amber-500/50" />
                   </div>
+                  {(pageData?.ownerPhone || pageData?.ownerEmail) && (
+                    <div className="flex flex-col items-center gap-1.5 mt-3 text-xs text-stone-450 font-sans">
+                      {pageData?.ownerPhone && (
+                        <a href={`tel:${pageData.ownerPhone}`} className="hover:text-amber-500 transition flex items-center gap-2 justify-center">
+                          <Phone className="w-3.5 h-3.5 text-amber-500" />
+                          <span>{pageData.ownerPhone}</span>
+                        </a>
+                      )}
+                      {pageData?.ownerEmail && (
+                        <a href={`mailto:${pageData.ownerEmail}`} className="hover:text-amber-500 transition flex items-center gap-2 justify-center">
+                          <Mail className="w-3.5 h-3.5 text-amber-500" />
+                          <span>{pageData.ownerEmail}</span>
+                        </a>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

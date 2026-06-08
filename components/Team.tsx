@@ -21,6 +21,7 @@ interface TeamProps {
 export default function Team({ isClassicDark, databaseMembers }: TeamProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(1);
+  const [isTransitioning, setIsTransitioning] = useState(true);
 
   const defaultTeamMembers: TeamMember[] = [
     {
@@ -89,20 +90,44 @@ export default function Team({ isClassicDark, databaseMembers }: TeamProps) {
   const maxIndex = Math.max(0, teamMembers.length - visibleCount);
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+    setCurrentIndex((prev) => prev + 1);
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
+    if (currentIndex === 0) {
+      setIsTransitioning(false);
+      setCurrentIndex(teamMembers.length);
+      setTimeout(() => {
+        setIsTransitioning(true);
+        setCurrentIndex(teamMembers.length - 1);
+      }, 55);
+    } else {
+      setCurrentIndex((prev) => prev - 1);
+    }
   };
 
   useEffect(() => {
-    if (maxIndex === 0) return;
+    if (teamMembers.length === 0) return;
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+      nextSlide();
     }, 4000);
     return () => clearInterval(interval);
-  }, [maxIndex, currentIndex]);
+  }, [teamMembers.length]);
+
+  useEffect(() => {
+    if (currentIndex === teamMembers.length) {
+      const timer = setTimeout(() => {
+        setIsTransitioning(false);
+        setCurrentIndex(0);
+      }, 500);
+      return () => clearTimeout(timer);
+    } else {
+      const timer = setTimeout(() => {
+        setIsTransitioning(true);
+      }, 50);
+      return () => clearTimeout(timer);
+    }
+  }, [currentIndex, teamMembers.length]);
 
   return (
     <section
@@ -136,15 +161,14 @@ export default function Team({ isClassicDark, databaseMembers }: TeamProps) {
           <div className="w-12 h-[1px] bg-amber-500/50 mx-auto mt-3" />
         </div>
 
-        {/* Team Slider Row */}
         <div className="w-full overflow-hidden relative py-4">
           <div 
-            className="flex gap-6 transition-transform duration-500 ease-in-out"
+            className={`flex gap-6 ${isTransitioning ? 'transition-transform duration-500 ease-in-out' : 'transition-none'}`}
             style={{ transform: `translateX(calc(-${currentIndex} * (100% + 24px) / ${visibleCount}))` }}
           >
-            {teamMembers.map((member) => (
+            {[...teamMembers, ...teamMembers.slice(0, visibleCount)].map((member, idx) => (
               <div
-                key={member.id}
+                key={`${member.id}-extended-${idx}`}
                 className={`flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] group relative rounded-2xl overflow-hidden border transition-all duration-550 flex flex-col ${
                   isClassicDark
                     ? 'bg-stone-900/40 border-stone-800 hover:border-amber-500/20'
@@ -219,12 +243,15 @@ export default function Team({ isClassicDark, databaseMembers }: TeamProps) {
           </div>
 
           <div className="flex gap-2">
-            {Array.from({ length: maxIndex + 1 }).map((_, index) => (
+            {teamMembers.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentIndex(index)}
+                onClick={() => {
+                  setIsTransitioning(true);
+                  setCurrentIndex(index);
+                }}
                 className={`h-1.5 rounded-full transition-all duration-300 ${
-                  currentIndex === index
+                  (currentIndex % teamMembers.length) === index
                     ? 'w-6 bg-amber-500'
                     : `w-1.5 ${isClassicDark ? 'bg-stone-800' : 'bg-stone-300'}`
                 }`}

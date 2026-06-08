@@ -12,6 +12,8 @@ interface AdminPanelProps {
     ownerName: string;
     ownerMessage: string;
     ownerImageUrl?: string;
+    ownerPhone?: string;
+    ownerEmail?: string;
     techPartnerName: string;
     techPartnerUrl: string;
     hotelPhone: string;
@@ -74,8 +76,8 @@ export default function AdminPanel({
   const [formOwnerName, setFormOwnerName] = useState(pageData.ownerName);
   const [formOwnerMessage, setFormOwnerMessage] = useState(pageData.ownerMessage);
   const [formOwnerImageUrl, setFormOwnerImageUrl] = useState(pageData.ownerImageUrl || '');
-  const [formTechPartnerName, setFormTechPartnerName] = useState(pageData.techPartnerName);
-  const [formTechPartnerUrl, setFormTechPartnerUrl] = useState(pageData.techPartnerUrl);
+  const [formOwnerPhone, setFormOwnerPhone] = useState(pageData.ownerPhone || '');
+  const [formOwnerEmail, setFormOwnerEmail] = useState(pageData.ownerEmail || '');
   const [formHotelPhone, setFormHotelPhone] = useState(pageData.hotelPhone);
   const [formHotelEmail, setFormHotelEmail] = useState(pageData.hotelEmail);
   const [formHotelAddress, setFormHotelAddress] = useState(pageData.hotelAddress);
@@ -173,8 +175,8 @@ export default function AdminPanel({
     e.preventDefault();
     await onSaveSection('general', {
       hotelName: formHotelName,
-      techPartnerName: formTechPartnerName,
-      techPartnerUrl: formTechPartnerUrl,
+      techPartnerName: pageData.techPartnerName || ' SAUDI BUSINESS  CONSULTANCY',
+      techPartnerUrl: pageData.techPartnerUrl || 'https://saudibusiness.info',
       hotelPhone: formHotelPhone,
       hotelEmail: formHotelEmail,
       hotelAddress: formHotelAddress,
@@ -187,7 +189,9 @@ export default function AdminPanel({
     await onSaveSection('about', {
       ownerName: formOwnerName,
       ownerMessage: formOwnerMessage,
-      ownerImageUrl: formOwnerImageUrl
+      ownerImageUrl: formOwnerImageUrl,
+      ownerPhone: formOwnerPhone,
+      ownerEmail: formOwnerEmail
     });
     alert('General and About configurations saved successfully to Supabase!');
   };
@@ -486,6 +490,14 @@ export default function AdminPanel({
                   <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Owner Name</label>
                   <input type="text" value={formOwnerName} onChange={(e) => setFormOwnerName(e.target.value)} className="w-full py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" />
                 </div>
+                <div>
+                  <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Owner Phone</label>
+                  <input type="text" value={formOwnerPhone} onChange={(e) => setFormOwnerPhone(e.target.value)} className="w-full py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" placeholder="e.g. +966550014267" />
+                </div>
+                <div>
+                  <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Owner Email</label>
+                  <input type="email" value={formOwnerEmail} onChange={(e) => setFormOwnerEmail(e.target.value)} className="w-full py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" placeholder="e.g. DELOWAR019149@GMAIL.COM" />
+                </div>
                 <div className="md:col-span-2">
                   <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Owner's Message (The Visionary)</label>
                   <textarea rows={4} value={formOwnerMessage} onChange={(e) => setFormOwnerMessage(e.target.value)} className="w-full py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" />
@@ -530,24 +542,6 @@ export default function AdminPanel({
                       )}
                     </div>
                   </div>
-                </div>
-                <div>
-                  <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Tech Partner Name</label>
-                  <input
-                    type="text"
-                    value={formTechPartnerName}
-                    onChange={(e) => setFormTechPartnerName(e.target.value)}
-                    className="w-full py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Tech Partner URL</label>
-                  <input
-                    type="text"
-                    value={formTechPartnerUrl}
-                    onChange={(e) => setFormTechPartnerUrl(e.target.value)}
-                    className="w-full py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500"
-                  />
                 </div>
                 <div className="md:col-span-2">
                   <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Website Logo Image</label>

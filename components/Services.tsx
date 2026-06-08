@@ -21,6 +21,7 @@ interface ServicesProps {
 export default function Services({ isClassicDark, databaseServices }: ServicesProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(1);
+  const [isTransitioning, setIsTransitioning] = useState(true);
 
   const defaultServices: ServiceItem[] = [
     {
@@ -95,20 +96,44 @@ export default function Services({ isClassicDark, databaseServices }: ServicesPr
   const maxIndex = Math.max(0, services.length - visibleCount);
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+    setCurrentIndex((prev) => prev + 1);
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
+    if (currentIndex === 0) {
+      setIsTransitioning(false);
+      setCurrentIndex(services.length);
+      setTimeout(() => {
+        setIsTransitioning(true);
+        setCurrentIndex(services.length - 1);
+      }, 55);
+    } else {
+      setCurrentIndex((prev) => prev - 1);
+    }
   };
 
   useEffect(() => {
-    if (maxIndex === 0) return;
+    if (services.length === 0) return;
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+      nextSlide();
     }, 4000);
     return () => clearInterval(interval);
-  }, [maxIndex, currentIndex]);
+  }, [services.length]);
+
+  useEffect(() => {
+    if (currentIndex === services.length) {
+      const timer = setTimeout(() => {
+        setIsTransitioning(false);
+        setCurrentIndex(0);
+      }, 500);
+      return () => clearTimeout(timer);
+    } else {
+      const timer = setTimeout(() => {
+        setIsTransitioning(true);
+      }, 50);
+      return () => clearTimeout(timer);
+    }
+  }, [currentIndex, services.length]);
 
   return (
     <section
@@ -142,16 +167,15 @@ export default function Services({ isClassicDark, databaseServices }: ServicesPr
           <div className="w-12 h-[1px] bg-amber-500/50 mx-auto mt-3" />
         </div>
 
-        {/* Services Horizontal Slider Row */}
         <div className="w-full overflow-hidden relative py-4">
           <div 
-            className="flex gap-6 transition-transform duration-500 ease-in-out"
+            className={`flex gap-6 ${isTransitioning ? 'transition-transform duration-500 ease-in-out' : 'transition-none'}`}
             style={{ transform: `translateX(calc(-${currentIndex} * (100% + 24px) / ${visibleCount}))` }}
           >
-            {services.map((service) => {
+            {[...services, ...services.slice(0, visibleCount)].map((service, idx) => {
               return (
                 <div
-                  key={service.id}
+                  key={`${service.id}-extended-${idx}`}
                   className={`flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] overflow-hidden rounded-2xl border transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl group flex flex-col ${
                     isClassicDark
                       ? 'bg-stone-900/60 border-stone-800 hover:border-amber-500/30'
@@ -218,12 +242,15 @@ export default function Services({ isClassicDark, databaseServices }: ServicesPr
           </div>
 
           <div className="flex gap-2">
-            {Array.from({ length: maxIndex + 1 }).map((_, index) => (
+            {services.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentIndex(index)}
+                onClick={() => {
+                  setIsTransitioning(true);
+                  setCurrentIndex(index);
+                }}
                 className={`h-1.5 rounded-full transition-all duration-300 ${
-                  currentIndex === index
+                  (currentIndex % services.length) === index
                     ? 'w-6 bg-amber-500'
                     : `w-1.5 ${isClassicDark ? 'bg-stone-800' : 'bg-stone-300'}`
                 }`}

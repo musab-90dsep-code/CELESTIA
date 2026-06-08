@@ -12,6 +12,8 @@ export default function AdminPage() {
     ownerName: 'Md Delowar Hossain',
     ownerMessage: 'Islami Bank Bangladesh PLC (IBBPLC) is the largest commercial bank of Bangladesh. It is the first Shariah-based scheduled commercial bank in the South and South-East Asia region established in March 1983. With 400 branches, 271 sub-branches & 2,793 Agent Banking Outlets, the Bank possesses the largest branch network among the private sector banks in Bangladesh.',
     ownerImageUrl: '',
+    ownerPhone: '+966550014267',
+    ownerEmail: 'DELOWAR019149@GMAIL.COM',
     techPartnerName: ' SAUDI BUSINESS  CONSULTANCY',
     techPartnerUrl: 'https://saudibusiness.info',
     hotelPhone: '+966550014267',
