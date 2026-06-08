@@ -109,11 +109,11 @@ export default function Management({ isClassicDark, databaseMembers }: Managemen
                 }`}
             >
               {/* Member Photo */}
-              <div className="relative aspect-[4/3] w-full overflow-hidden">
+              <div className="relative aspect-[3/4] w-full overflow-hidden">
                 <img
                   src={member.image.src}
                   alt={member.name}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-stone-950/60 via-transparent to-transparent opacity-65" />
               </div>

@@ -5,7 +5,7 @@ import { ZoomIn, ZoomOut, Check, X, Move } from 'lucide-react';
 
 interface ImageCropperModalProps {
   imageSrc: string; // Base64 or Object URL of the source image
-  aspect: '1:1' | '3:4' | '16:9' | '16:10';
+  aspect: '1:1' | '3:4' | '4:3' | '16:9' | '16:10';
   onCrop: (croppedDataUrl: string) => void;
   onCancel: () => void;
 }
@@ -30,6 +30,10 @@ export default function ImageCropperModal({ imageSrc, aspect, onCrop, onCancel }
     viewportWidth = 300;
     viewportHeight = 400;
     aspectName = 'Portrait (3:4)';
+  } else if (aspect === '4:3') {
+    viewportWidth = 400;
+    viewportHeight = 300;
+    aspectName = 'Landscape (4:3)';
   } else if (aspect === '16:9') {
     viewportWidth = 440;
     viewportHeight = 248;
@@ -121,11 +125,21 @@ export default function ImageCropperModal({ imageSrc, aspect, onCrop, onCancel }
 
   // Execute Canvas Crop and output base64 dataUrl
   const handleApplyCrop = () => {
-    if (imageSize.naturalWidth === 0) return;
+    if (imageSize.naturalWidth === 0 || initialScaleSize.width === 0) return;
+
+    // Calculate scale factor to match original image pixels (100% original quality)
+    let scaleFactor = imageSize.naturalWidth / initialScaleSize.width;
+    
+    // Cap output resolution to maximum of 2000px to keep quality ultra-sharp while optimizing loading speed
+    const maxOutputDim = 2000;
+    const currentMaxDim = Math.max(viewportWidth * scaleFactor, viewportHeight * scaleFactor);
+    if (currentMaxDim > maxOutputDim) {
+      scaleFactor = scaleFactor * (maxOutputDim / currentMaxDim);
+    }
 
     const canvas = document.createElement('canvas');
-    canvas.width = viewportWidth;
-    canvas.height = viewportHeight;
+    canvas.width = viewportWidth * scaleFactor;
+    canvas.height = viewportHeight * scaleFactor;
     const ctx = canvas.getContext('2d');
 
     if (!ctx) return;
@@ -136,12 +150,15 @@ export default function ImageCropperModal({ imageSrc, aspect, onCrop, onCancel }
 
     // Clear background (standard black)
     ctx.fillStyle = '#1c1917'; // stone-900
-    ctx.fillRect(0, 0, viewportWidth, viewportHeight);
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     const img = imageRef.current;
     if (img) {
       // Replicate the CSS transformations onto the canvas
       ctx.save();
+      
+      // Scale everything to match high-resolution canvas
+      ctx.scale(scaleFactor, scaleFactor);
       
       // Translate to viewport center (transform origin)
       ctx.translate(viewportWidth / 2, viewportHeight / 2);
@@ -159,8 +176,8 @@ export default function ImageCropperModal({ imageSrc, aspect, onCrop, onCancel }
       ctx.drawImage(img, dx, dy, initialScaleSize.width, initialScaleSize.height);
       ctx.restore();
 
-      // Export as jpeg base64
-      const croppedBase64 = canvas.toDataURL('image/jpeg', 0.9);
+      // Export as jpeg base64 with high quality
+      const croppedBase64 = canvas.toDataURL('image/jpeg', 0.95);
       onCrop(croppedBase64);
     }
   };

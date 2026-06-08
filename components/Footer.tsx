@@ -1,6 +1,6 @@
 'use client';
 
-import { Crown, Heart } from 'lucide-react';
+import { Crown, Heart, Facebook, Instagram, Twitter, Linkedin } from 'lucide-react';
 import logoImg from '../assets/logo.jpg';
 
 interface FooterProps {
@@ -29,6 +29,45 @@ export default function Footer({ isClassicDark, scrollTo, onAdminClick, pageData
             <p className="text-xs text-stone-500 leading-relaxed max-w-md">
               Bespoke luxury residential living bridging security, serenity, and legendary 5-star service. Experience the zenith of hospitality.
             </p>
+
+            <div className="flex items-center space-x-3 pt-2">
+              <a
+                href={pageData?.facebookUrl || "https://facebook.com"}
+                target="_blank"
+                rel="noreferrer"
+                className="w-8 h-8 rounded-full border border-stone-800 hover:border-amber-500/30 flex items-center justify-center text-stone-500 hover:text-amber-500 bg-stone-900/50 hover:bg-amber-500/5 transition-all duration-300 cursor-pointer"
+                aria-label="Facebook"
+              >
+                <Facebook className="w-4 h-4" />
+              </a>
+              <a
+                href={pageData?.instagramUrl || "https://instagram.com"}
+                target="_blank"
+                rel="noreferrer"
+                className="w-8 h-8 rounded-full border border-stone-800 hover:border-amber-500/30 flex items-center justify-center text-stone-500 hover:text-amber-500 bg-stone-900/50 hover:bg-amber-500/5 transition-all duration-300 cursor-pointer"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-4 h-4" />
+              </a>
+              <a
+                href={pageData?.twitterUrl || "https://twitter.com"}
+                target="_blank"
+                rel="noreferrer"
+                className="w-8 h-8 rounded-full border border-stone-800 hover:border-amber-500/30 flex items-center justify-center text-stone-500 hover:text-amber-500 bg-stone-900/50 hover:bg-amber-500/5 transition-all duration-300 cursor-pointer"
+                aria-label="Twitter"
+              >
+                <Twitter className="w-4 h-4" />
+              </a>
+              <a
+                href={pageData?.linkedinUrl || "https://linkedin.com"}
+                target="_blank"
+                rel="noreferrer"
+                className="w-8 h-8 rounded-full border border-stone-800 hover:border-amber-500/30 flex items-center justify-center text-stone-500 hover:text-amber-500 bg-stone-900/50 hover:bg-amber-500/5 transition-all duration-300 cursor-pointer"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="w-4 h-4" />
+              </a>
+            </div>
 
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs">
               <button onClick={() => scrollTo('about')} className="hover:text-amber-400 transition-colors cursor-pointer text-stone-400">The Visionary</button>

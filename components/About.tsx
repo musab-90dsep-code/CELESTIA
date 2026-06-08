@@ -44,7 +44,7 @@ export default function About({ isClassicDark, scrollTo, pageData }: AboutProps)
               isClassicDark
                 ? 'bg-stone-900/40 border-stone-800/80 backdrop-blur-md shadow-2xl'
                 : 'bg-white border-stone-200/80 shadow-xl'
-            } w-full max-w-sm`}>
+            } w-full max-w-lg`}>
 
               {/* Decorative Accent Corners */}
               <div className="absolute top-0 right-0 w-8 h-8 pointer-events-none">
@@ -58,11 +58,11 @@ export default function About({ isClassicDark, scrollTo, pageData }: AboutProps)
                 {/* Image Wrapper with Glow & Ring */}
                 <div className="relative group">
                   <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-300 opacity-20 group-hover:opacity-50 transition duration-500 blur-sm" />
-                  <div className="relative w-52 h-52 sm:w-56 sm:h-56 rounded-2xl overflow-hidden border border-amber-500/20 bg-stone-950">
+                  <div className="relative w-72 sm:w-80 lg:w-[380px] aspect-[3/4] rounded-2xl overflow-hidden border border-amber-500/20 bg-stone-950">
                     <img
                       src={pageData?.ownerImageUrl || ownerImg.src}
                       alt="Hotel Owner"
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 scale-110 group-hover:scale-115"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-stone-950/20 via-transparent to-transparent" />
                   </div>

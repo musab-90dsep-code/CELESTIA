@@ -17,6 +17,11 @@ interface AdminPanelProps {
     hotelPhone: string;
     hotelEmail: string;
     hotelAddress: string;
+    logoUrl?: string;
+    facebookUrl?: string;
+    instagramUrl?: string;
+    twitterUrl?: string;
+    linkedinUrl?: string;
   };
   databaseHeroImages: string[];
   databaseManagementMembers: any[];
@@ -75,6 +80,10 @@ export default function AdminPanel({
   const [formHotelEmail, setFormHotelEmail] = useState(pageData.hotelEmail);
   const [formHotelAddress, setFormHotelAddress] = useState(pageData.hotelAddress);
   const [formLogoUrl, setFormLogoUrl] = useState((pageData as any).logoUrl || '');
+  const [formFacebookUrl, setFormFacebookUrl] = useState((pageData as any).facebookUrl || '');
+  const [formInstagramUrl, setFormInstagramUrl] = useState((pageData as any).instagramUrl || '');
+  const [formTwitterUrl, setFormTwitterUrl] = useState((pageData as any).twitterUrl || '');
+  const [formLinkedinUrl, setFormLinkedinUrl] = useState((pageData as any).linkedinUrl || '');
 
   // 2. Hero Images (4 items)
   const defaultHeroUrls = [
@@ -142,10 +151,10 @@ export default function AdminPanel({
   // --- IMAGE CROPPER STATES ---
   const [cropActive, setCropActive] = useState(false);
   const [cropImageSrc, setCropImageSrc] = useState<string>('');
-  const [cropAspect, setCropAspect] = useState<'1:1' | '3:4' | '16:9' | '16:10'>('1:1');
+  const [cropAspect, setCropAspect] = useState<'1:1' | '3:4' | '4:3' | '16:9' | '16:10'>('1:1');
   const [cropOnComplete, setCropOnComplete] = useState<(croppedDataUrl: string) => void>(() => () => {});
 
-  const startCropFlow = (file: File, aspect: '1:1' | '3:4' | '16:9' | '16:10', onDone: (cropped: string) => void) => {
+  const startCropFlow = (file: File, aspect: '1:1' | '3:4' | '4:3' | '16:9' | '16:10', onDone: (cropped: string) => void) => {
     const reader = new FileReader();
     reader.onloadend = () => {
       if (typeof reader.result === 'string') {
@@ -169,7 +178,11 @@ export default function AdminPanel({
       hotelPhone: formHotelPhone,
       hotelEmail: formHotelEmail,
       hotelAddress: formHotelAddress,
-      logoUrl: formLogoUrl
+      logoUrl: formLogoUrl,
+      facebookUrl: formFacebookUrl,
+      instagramUrl: formInstagramUrl,
+      twitterUrl: formTwitterUrl,
+      linkedinUrl: formLinkedinUrl
     });
     await onSaveSection('about', {
       ownerName: formOwnerName,
@@ -584,6 +597,22 @@ export default function AdminPanel({
                 <div>
                   <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Hotel Email</label>
                   <input type="email" value={formHotelEmail} onChange={(e) => setFormHotelEmail(e.target.value)} className="w-full py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" />
+                </div>
+                <div>
+                  <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Facebook URL</label>
+                  <input type="text" value={formFacebookUrl} onChange={(e) => setFormFacebookUrl(e.target.value)} className="w-full py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" placeholder="e.g. https://facebook.com/page" />
+                </div>
+                <div>
+                  <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Instagram URL</label>
+                  <input type="text" value={formInstagramUrl} onChange={(e) => setFormInstagramUrl(e.target.value)} className="w-full py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" placeholder="e.g. https://instagram.com/profile" />
+                </div>
+                <div>
+                  <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Twitter URL</label>
+                  <input type="text" value={formTwitterUrl} onChange={(e) => setFormTwitterUrl(e.target.value)} className="w-full py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" placeholder="e.g. https://twitter.com/handle" />
+                </div>
+                <div>
+                  <label className="block text-xs uppercase font-bold text-stone-400 mb-2">LinkedIn URL</label>
+                  <input type="text" value={formLinkedinUrl} onChange={(e) => setFormLinkedinUrl(e.target.value)} className="w-full py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" placeholder="e.g. https://linkedin.com/in/profile" />
                 </div>
                 <div className="md:col-span-2">
                   <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Hotel Physical Address</label>

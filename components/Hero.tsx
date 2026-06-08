@@ -28,13 +28,12 @@ export default function Hero({ databaseImages }: HeroProps) {
   }, [images.length]);
 
   return (
-    <section id="hero" className="relative w-full h-[420px] overflow-hidden">
+    <section id="hero" className="relative w-full h-[500px] overflow-hidden">
       {images.map((image, index) => (
         <div
           key={index}
-          className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000 ease-in-out ${
-            index === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
-          }`}
+          className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000 ease-in-out ${index === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
+            }`}
           style={{ backgroundImage: `url("${image}")` }}
         />
       ))}

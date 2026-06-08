@@ -37,7 +37,12 @@ export default function Home() {
     techPartnerUrl: 'https://saudibusiness.info',
     hotelPhone: '+966550014267',
     hotelEmail: 'DELOWAR019149@GMAIL.COM',
-    hotelAddress: 'MAKKAH AL MAKARAMA SAUDI ARABIA'
+    hotelAddress: 'MAKKAH AL MAKARAMA SAUDI ARABIA',
+    logoUrl: '',
+    facebookUrl: '',
+    instagramUrl: '',
+    twitterUrl: '',
+    linkedinUrl: ''
   });
 
   const [heroImages, setHeroImages] = useState<string[]>([]);
