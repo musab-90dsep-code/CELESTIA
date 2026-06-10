@@ -72,15 +72,6 @@ export default function Navbar({
 
         {/* Right Header Panel (CTA, Mobile Trigger) */}
         <div className="flex items-center space-x-4">
-          {/* Book Now Button */}
-          <button
-            onClick={() => scrollTo('contact')}
-            className="inline-flex items-center px-4 py-2 border border-amber-500/40 text-xs tracking-wider uppercase bg-amber-550/10 text-amber-400 hover:bg-amber-500 hover:text-stone-950 transition-all duration-300 font-sans font-semibold rounded-xs cursor-pointer"
-            id="header-cta-booking"
-          >
-            Book Now
-          </button>
-
           {/* Mobile Menu Icon */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

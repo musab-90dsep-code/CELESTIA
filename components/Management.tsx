@@ -126,10 +126,6 @@ export default function Management({ isClassicDark, databaseMembers }: Managemen
                 <h3 className="font-serif text-xl font-semibold mb-3">
                   {member.name}
                 </h3>
-                <div className="text-xs space-y-1 opacity-70 group-hover:opacity-100 transition-opacity">
-                  <p><strong>Email:</strong> {member.email}</p>
-                  <p><strong>Phone:</strong> {member.phone}</p>
-                </div>
               </div>
             </div>
           ))}
@@ -172,20 +168,7 @@ export default function Management({ isClassicDark, databaseMembers }: Managemen
                 <div className="w-12 h-[1px] bg-amber-500/50 mt-3" />
               </div>
 
-              <div className="space-y-2 py-4 border-y border-stone-500/10">
-                <p className="text-sm">
-                  <span className="font-semibold opacity-60">Email: </span>
-                  <a href={`mailto:${selectedMember.email}`} className="text-amber-500 hover:underline">
-                    {selectedMember.email}
-                  </a>
-                </p>
-                <p className="text-sm">
-                  <span className="font-semibold opacity-60">Phone: </span>
-                  <a href={`tel:${selectedMember.phone}`} className="text-amber-500 hover:underline">
-                    {selectedMember.phone}
-                  </a>
-                </p>
-              </div>
+
 
               <div>
                 <h4 className="text-xs uppercase tracking-widest font-semibold opacity-60 mb-2">

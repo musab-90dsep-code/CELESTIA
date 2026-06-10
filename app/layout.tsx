@@ -13,8 +13,21 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.samawetalkhalej.com'),
   title: 'SAMAWET AL KHALEJ',
   description: 'Experience premium luxury living, five-star rooms, and legendary hospitality at SAMAWET AL KHALEJ.',
+  openGraph: {
+    title: 'SAMAWET AL KHALEJ',
+    description: 'Experience premium luxury living, five-star rooms, and legendary hospitality at SAMAWET AL KHALEJ.',
+    url: 'https://www.samawetalkhalej.com',
+    siteName: 'SAMAWET AL KHALEJ',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SAMAWET AL KHALEJ',
+    description: 'Experience premium luxury living, five-star rooms, and legendary hospitality at SAMAWET AL KHALEJ.',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

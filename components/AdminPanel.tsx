@@ -756,14 +756,7 @@ export default function AdminPanel({
                         )}
                       </div>
                     </div>
-                    <div>
-                      <label className="block text-[10px] uppercase text-stone-500 mb-1">Email</label>
-                      <input type="text" value={member.email} onChange={(e) => updateManagementField(index, 'email', e.target.value)} className="w-full py-2 px-3 bg-stone-950 border border-stone-800 rounded text-xs text-white" />
-                    </div>
-                    <div>
-                      <label className="block text-[10px] uppercase text-stone-500 mb-1">Phone</label>
-                      <input type="text" value={member.phone} onChange={(e) => updateManagementField(index, 'phone', e.target.value)} className="w-full py-2 px-3 bg-stone-950 border border-stone-800 rounded text-xs text-white" />
-                    </div>
+
                     <div className="md:col-span-2">
                       <label className="block text-[10px] uppercase text-stone-500 mb-1">Biography & Work Role</label>
                       <textarea rows={2} value={member.bio} onChange={(e) => updateManagementField(index, 'bio', e.target.value)} className="w-full py-2 px-3 bg-stone-950 border border-stone-800 rounded text-xs text-white" />
