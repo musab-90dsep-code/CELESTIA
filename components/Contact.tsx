@@ -11,6 +11,16 @@ interface ContactProps {
 }
 
 export default function Contact({ isClassicDark, formData, setFormData, scrollTo, pageData }: ContactProps) {
+  const phones = (pageData?.hotelPhone || '+880 1790 334 564')
+    .split(/[,/;]/)
+    .map((p: string) => p.trim())
+    .filter(Boolean);
+
+  const emails = (pageData?.hotelEmail || 'concierge@celestiagrand.com')
+    .split(/[,/;]/)
+    .map((e: string) => e.trim())
+    .filter(Boolean);
+
   const contactDetails = [
     {
       icon: MapPin,
@@ -18,28 +28,32 @@ export default function Contact({ isClassicDark, formData, setFormData, scrollTo
       content: pageData?.hotelAddress || '74 Oceanic Golden Boulevard, Sector 5, Dhaka 1212, Bangladesh',
       linkText: 'Open in Google Maps',
       linkUrl: `https://maps.google.com/?q=${encodeURIComponent(pageData?.hotelAddress || '74 Oceanic Golden Boulevard, Sector 5, Dhaka 1212, Bangladesh')}`,
+      type: 'location',
     },
     {
       icon: Phone,
       title: 'Phone & Concierge',
-      content: pageData?.hotelPhone || '+880 1790 334 564',
+      content: phones,
       linkText: 'Call lobby desk',
-      linkUrl: `tel:${(pageData?.hotelPhone || '+8801790334564').replace(/[^\d+]/g, '')}`,
+      linkUrl: `tel:${phones[0]?.replace(/[^\d+]/g, '') || ''}`,
+      type: 'phone',
     },
     {
       icon: Mail,
       title: 'Email Address',
-      content: pageData?.hotelEmail || 'concierge@celestiagrand.com',
+      content: emails,
       linkText: 'Send an email',
-      linkUrl: `mailto:${pageData?.hotelEmail || 'concierge@celestiagrand.com'}`,
+      linkUrl: `mailto:${emails[0] || ''}`,
+      type: 'email',
     },
     {
       icon: MessageSquare,
       title: 'WhatsApp Chat',
       content: 'Available 24/7 for guest support',
       linkText: 'Chat on WhatsApp',
-      linkUrl: `https://wa.me/${(pageData?.hotelPhone || '8801790334564').replace(/[^\d]/g, '')}?text=Hello%20Celestia%20Grand%20Concierge%2C%2520I%2520would%2520like%2520to%2520request%2520information.`,
+      linkUrl: `https://wa.me/${(phones[0] || '8801790334564').replace(/[^\d]/g, '')}?text=Hello%20Celestia%20Grand%20Concierge%2C%2520I%2520would%2520like%2520to%2520request%2520information.`,
       isHighlight: true,
+      type: 'whatsapp',
     },
   ];
 
@@ -104,10 +118,34 @@ export default function Contact({ isClassicDark, formData, setFormData, scrollTo
                 </h3>
 
                 {/* Content */}
-                <p className={`text-xs sm:text-sm font-sans mb-4 leading-relaxed flex-grow opacity-75 ${isClassicDark ? 'text-stone-300' : 'text-stone-600'
+                <div className={`text-xs sm:text-sm font-sans mb-4 leading-relaxed flex-grow opacity-75 ${isClassicDark ? 'text-stone-300' : 'text-stone-600'
                   }`}>
-                  {detail.content}
-                </p>
+                  {Array.isArray(detail.content) ? (
+                    <div className="space-y-1">
+                      {detail.content.map((item, idx) => (
+                        <a
+                          key={idx}
+                          href={
+                            detail.type === 'phone'
+                              ? `tel:${item.replace(/[^\d+]/g, '')}`
+                              : detail.type === 'email'
+                              ? `mailto:${item}`
+                              : undefined
+                          }
+                          className={
+                            detail.type === 'phone' || detail.type === 'email'
+                              ? 'block hover:underline hover:text-amber-500 transition-colors'
+                              : 'block'
+                          }
+                        >
+                          {item}
+                        </a>
+                      ))}
+                    </div>
+                  ) : (
+                    <p>{detail.content}</p>
+                  )}
+                </div>
 
                 {/* Link Action */}
                 <a

@@ -585,12 +585,12 @@ export default function AdminPanel({
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Hotel Phone</label>
-                  <input type="text" value={formHotelPhone} onChange={(e) => setFormHotelPhone(e.target.value)} className="w-full py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" />
+                  <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Hotel Phone <span className="text-[10px] text-stone-500 normal-case font-normal">(Comma-separated)</span></label>
+                  <input type="text" value={formHotelPhone} onChange={(e) => setFormHotelPhone(e.target.value)} className="w-full py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" placeholder="e.g. +966550014267, +8801790334564" />
                 </div>
                 <div>
-                  <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Hotel Email</label>
-                  <input type="email" value={formHotelEmail} onChange={(e) => setFormHotelEmail(e.target.value)} className="w-full py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" />
+                  <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Hotel Email <span className="text-[10px] text-stone-500 normal-case font-normal">(Comma-separated)</span></label>
+                  <input type="text" value={formHotelEmail} onChange={(e) => setFormHotelEmail(e.target.value)} className="w-full py-2.5 px-4 bg-stone-950 border border-stone-800 rounded text-xs text-white focus:outline-none focus:border-amber-500" placeholder="e.g. DELOWAR019149@GMAIL.COM, info@samawetalkhalej.com" />
                 </div>
                 <div>
                   <label className="block text-xs uppercase font-bold text-stone-400 mb-2">Facebook URL</label>
